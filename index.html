@@ -4,93 +4,421 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>POP iFood — Five Points Burguer</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
+  :root {
+    --ifood-red: #ea1d2c;
+    --ifood-red-hover: #c91825;
+    --ifood-red-light: #fdf2f2;
+    --bg-color: #f5f5f5;
+    --card-bg: #ffffff;
+    --text-main: #3e3e3e;
+    --text-muted: #717171;
+    --border-color: #e0e0e0;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+  }
+
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Segoe UI', Arial, sans-serif; background: #111; color: #eee; min-height: 100vh; }
+  body { 
+    font-family: 'Nunito', Arial, sans-serif; 
+    background: var(--bg-color); 
+    color: var(--text-main); 
+    min-height: 100vh; 
+    padding-bottom: 40px;
+  }
 
-  .header { background: #1a1a1a; border-bottom: 2px solid #c0392b; padding: 18px 24px; display: flex; align-items: center; gap: 14px; }
-  .logo { font-size: 20px; font-weight: 700; letter-spacing: 1px; color: #fff; }
-  .logo span { color: #c0392b; }
-  .badge { font-size: 11px; background: #c0392b; color: #fff; padding: 3px 8px; border-radius: 4px; letter-spacing: 0.5px; font-weight: 600; }
+  /* Header */
+  .header { 
+    background: var(--card-bg); 
+    padding: 16px 32px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  
+  .logos {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .brand-five {
+    font-size: 22px;
+    font-weight: 800;
+    color: #000000;
+    letter-spacing: -0.5px;
+  }
+  
+  .brand-divider {
+    font-weight: 700;
+    color: #bbbbbb;
+    font-size: 20px;
+    margin: 0 4px;
+  }
+  
+  .brand-ifood {
+    font-size: 26px;
+    font-weight: 900;
+    color: var(--ifood-red);
+    letter-spacing: -1.5px;
+  }
 
-  .search-bar { padding: 16px 24px; background: #161616; }
-  .search-bar input { width: 100%; padding: 10px 14px; background: #252525; border: 1px solid #333; border-radius: 6px; color: #eee; font-size: 14px; outline: none; }
-  .search-bar input:focus { border-color: #c0392b; }
-  .search-bar input::placeholder { color: #666; }
+  .badge { 
+    font-size: 13px; 
+    background: var(--ifood-red-light); 
+    color: var(--ifood-red); 
+    padding: 6px 12px; 
+    border-radius: 20px; 
+    font-weight: 700; 
+  }
 
-  .problems-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; padding: 16px 24px; }
-  .prob-btn { background: #1e1e1e; border: 1.5px solid #333; border-radius: 8px; padding: 14px 12px; cursor: pointer; text-align: left; color: #ddd; font-size: 13px; line-height: 1.4; transition: border-color 0.15s, background 0.15s; display: flex; flex-direction: column; gap: 6px; }
-  .prob-btn:hover { border-color: #c0392b; background: #252525; }
-  .prob-btn.active { border-color: #c0392b; background: #2a1616; color: #fff; }
-  .prob-btn .prob-icon { font-size: 22px; }
-  .prob-btn .prob-title { font-weight: 600; font-size: 13px; text-transform: uppercase; }
-  .prob-btn .prob-sub { font-size: 11px; color: #888; text-transform: uppercase; }
+  /* Search Bar */
+  .search-section { 
+    padding: 32px 32px 16px; 
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .search-section h1 {
+    font-size: 24px;
+    font-weight: 800;
+    margin-bottom: 16px;
+    color: #222;
+  }
+  .search-input-wrapper {
+    position: relative;
+    width: 100%;
+  }
+  .search-input-wrapper span {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+  }
+  .search-bar input { 
+    width: 100%; 
+    padding: 16px 16px 16px 48px; 
+    background: var(--card-bg); 
+    border: 1px solid var(--border-color); 
+    border-radius: var(--radius-md); 
+    color: var(--text-main); 
+    font-size: 16px; 
+    font-family: 'Nunito', sans-serif;
+    outline: none; 
+    box-shadow: var(--shadow-sm);
+    transition: all 0.2s ease;
+  }
+  .search-bar input:focus { 
+    border-color: var(--ifood-red); 
+    box-shadow: 0 0 0 3px var(--ifood-red-light);
+  }
+  .search-bar input::placeholder { color: #999; }
 
-  .detail { display: none; margin: 0 24px 24px; background: #1a1a1a; border: 1px solid #333; border-radius: 10px; overflow: hidden; }
-  .detail.visible { display: block; }
-  .detail-header { background: #c0392b; padding: 14px 20px; }
-  .detail-header h2 { font-size: 15px; font-weight: 700; color: #fff; text-transform: uppercase; }
-  .detail-header p { font-size: 12px; color: rgba(255,255,255,0.75); margin-top: 3px; text-transform: uppercase; }
+  /* Problems Grid */
+  .problems-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); 
+    gap: 16px; 
+    padding: 16px 32px; 
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .prob-btn { 
+    background: var(--card-bg); 
+    border: 2px solid transparent; 
+    border-radius: var(--radius-md); 
+    padding: 24px 16px; 
+    cursor: pointer; 
+    text-align: center; 
+    color: var(--text-main); 
+    transition: all 0.2s ease; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center;
+    gap: 12px; 
+    box-shadow: var(--shadow-sm);
+  }
+  .prob-btn:hover { 
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+  .prob-btn.active { 
+    border-color: var(--ifood-red); 
+    background: var(--ifood-red-light); 
+  }
+  .prob-btn .prob-icon, .prob-btn .prob-icon-wrapper {
+    background: #f0f0f0;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    margin-bottom: 4px;
+    transition: background 0.2s ease;
+  }
+  .prob-btn.active .prob-icon, .prob-btn.active .prob-icon-wrapper {
+    background: #fff;
+  }
+  .prob-title {
+    font-weight: 800;
+    font-size: 16px;
+    color: #222;
+    text-transform: uppercase;
+  }
+  
+  .prob-sub {
+    font-size: 13px; 
+    color: var(--text-muted); 
+    line-height: 1.4;
+}
+  .prob-btn .prob-sub { 
+    font-size: 13px; 
+    color: var(--text-muted); 
+    line-height: 1.4;
+  }
+
+  /* Detail Section */
+  .detail { 
+    display: none; 
+    margin: 24px 32px; 
+    max-width: 1136px;
+    margin-left: auto;
+    margin-right: auto;
+    background: var(--card-bg); 
+    border-radius: var(--radius-lg); 
+    box-shadow: var(--shadow-md);
+    overflow: hidden; 
+  }
+  .detail.visible { display: block; animation: slideDown 0.3s ease; }
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .detail-header { 
+    background: #fff; 
+    padding: 24px 32px; 
+    border-bottom: 1px solid var(--border-color);
+  }
+  .detail-header h2 { 
+    font-size: 20px; 
+    font-weight: 800; 
+    color: #222; 
+    display: flex;
+    text-transform: uppercase;
+    align-items: center;
+    gap: 12px;
+  }
+  .detail-header p { 
+    font-size: 14px; 
+    color: var(--text-muted); 
+    margin-top: 8px; 
+    font-weight: 600;
+  }
 
   .scenarios { padding: 0; }
-  .scenario { border-bottom: 1px solid #2a2a2a; }
+  .scenario { border-bottom: 1px solid var(--border-color); }
   .scenario:last-child { border-bottom: none; }
-  .scenario-toggle { width: 100%; background: none; border: none; padding: 14px 20px; cursor: pointer; display: flex; align-items: center; gap: 10px; color: #ddd; font-size: 13px; font-weight: 600; text-align: left; text-transform: uppercase; }
-  .scenario-toggle:hover { background: #222; }
-  .scenario-toggle .s-badge { font-size: 10px; padding: 3px 8px; border-radius: 12px; font-weight: 700; }
-  .badge-ok { background: #1a4a2a; color: #4caf50; }
-  .badge-err { background: #4a1a1a; color: #e57373; }
-  .badge-ext { background: #1a2a4a; color: #64b5f6; }
-  .badge-warn { background: #3a2a10; color: #ffb74d; }
-  .scenario-toggle .chevron { margin-left: auto; font-size: 16px; transition: transform 0.2s; }
-  .scenario-toggle.open .chevron { transform: rotate(180deg); }
+  
+  .scenario-toggle { 
+    width: 100%; 
+    background: #fff; 
+    border: none; 
+    padding: 20px 32px; 
+    cursor: pointer; 
+    display: flex; 
+    align-items: center; 
+    gap: 16px; 
+    color: #222; 
+    font-size: 16px; 
+    font-weight: 700; 
+    text-align: left; 
+    transition: background 0.2s;
+    text-transform: uppercase;
+  }
+  .scenario-toggle:hover { background: #fafafa; }
+  
+  .s-badge { 
+    font-size: 12px; 
+    padding: 4px 10px; 
+    border-radius: 100px; 
+    font-weight: 800; 
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: inline-block;
+    flex-shrink: 0;
+  }
+  .badge-ok { background: #e6f4ea; color: #137333; }
+  .badge-err { background: #fce8e6; color: #c5221f; }
+  .badge-ext { background: #e8f0fe; color: #1967d2; }
+  .badge-warn { background: #fef7e0; color: #b06000; }
+  
+  .scenario-toggle .chevron { 
+    margin-left: auto; 
+    font-size: 18px; 
+    color: #999;
+    transition: transform 0.2s; 
+  }
+  .scenario-toggle.open .chevron { transform: rotate(180deg); color: var(--ifood-red); }
 
-  .scenario-body { display: none; padding: 0 20px 18px; }
-  .scenario-body.open { display: block; }
+  .scenario-body { display: none; padding: 0 32px 24px; background: #fafafa; }
+  .scenario-body.open { display: block; border-top: 1px solid #f0f0f0; padding-top: 24px; }
 
-  .steps { margin-bottom: 14px; }
-  .steps h4 { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 8px; margin-top: 14px; }
-  .step { display: flex; gap: 10px; margin-bottom: 8px; align-items: flex-start; font-size: 13px; color: #ccc; line-height: 1.5; }
-  .step-num { min-width: 22px; height: 22px; border-radius: 50%; background: #c0392b; color: #fff; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-top: 1px; }
-  .step-num.blue { background: #1565c0; }
-  .step-num.green { background: #2e7d32; }
+  /* Steps Timeline */
+  .steps { margin-bottom: 24px; }
+  .steps h4 { 
+    font-size: 14px; 
+    color: #222; 
+    font-weight: 800; 
+    margin-bottom: 16px; 
+    text-transform: uppercase;
+  }
+  .step { 
+    display: flex; 
+    gap: 16px; 
+    margin-bottom: 16px; 
+    align-items: flex-start; 
+    font-size: 15px; 
+    color: #444; 
+    line-height: 1.5; 
+  }
+  .step-num { 
+    min-width: 28px; 
+    height: 28px; 
+    border-radius: 50%; 
+    background: var(--text-muted); 
+    color: #fff; 
+    font-size: 14px; 
+    font-weight: 800; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    flex-shrink: 0;
+  }
+  .step-num.red { background: var(--ifood-red); }
+  .step-num.blue { background: #1967d2; }
+  .step-num.green { background: #137333; }
   .step-num.orange { background: #e65100; }
 
-  .alert-box { background: #1e2a1e; border-left: 3px solid #4caf50; border-radius: 0 6px 6px 0; padding: 10px 14px; font-size: 12px; color: #a5d6a7; margin: 10px 0; line-height: 1.5; }
-  .alert-box.red { background: #2a1e1e; border-color: #e57373; color: #ef9a9a; }
-  .alert-box.blue { background: #1a2030; border-color: #64b5f6; color: #90caf9; }
-  .alert-box.orange { background: #2a2010; border-color: #ffb74d; color: #ffcc80; }
+  /* Alerts */
+  .alert-box { 
+    background: #e6f4ea; 
+    border-radius: var(--radius-sm); 
+    padding: 16px; 
+    font-size: 14px; 
+    color: #137333; 
+    margin: 16px 0; 
+    line-height: 1.5;
+    font-weight: 600;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .alert-box.red { background: #fce8e6; color: #c5221f; }
+  .alert-box.blue { background: #e8f0fe; color: #1967d2; }
+  .alert-box.orange { background: #fef7e0; color: #b06000; }
 
-  .msg-block { background: #111; border: 1px solid #2a2a2a; border-radius: 8px; margin: 10px 0; overflow: hidden; }
-  .msg-block-header { padding: 8px 14px; background: #1e1e1e; border-bottom: 1px solid #2a2a2a; display: flex; align-items: center; justify-content: space-between; }
-  .msg-block-header span { font-size: 11px; color: #888; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
-  .msg-block-header button { background: #252525; border: 1px solid #444; color: #bbb; font-size: 11px; padding: 4px 10px; border-radius: 4px; cursor: pointer; transition: background 0.1s; }
-  .msg-block-header button:hover { background: #333; color: #fff; }
-  .msg-block-header button.copied { background: #1a4a2a; border-color: #4caf50; color: #4caf50; }
-  .msg-text { padding: 12px 14px; font-size: 13px; color: #ccc; line-height: 1.6; white-space: pre-wrap; }
+  /* Message Blocks */
+  .msg-block { 
+    background: #fff; 
+    border: 1px solid var(--border-color); 
+    border-radius: var(--radius-md); 
+    margin: 16px 0; 
+    overflow: hidden; 
+    box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+  }
+  .msg-block-header { 
+    padding: 12px 16px; 
+    background: #f9f9f9; 
+    border-bottom: 1px solid var(--border-color); 
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between; 
+  }
+  .msg-block-header span { 
+    font-size: 12px; 
+    color: var(--text-muted); 
+    font-weight: 800; 
+    text-transform: uppercase; 
+    letter-spacing: 0.5px; 
+  }
+  .msg-block-header button { 
+    background: #fff; 
+    border: 1px solid var(--border-color); 
+    color: var(--text-main); 
+    font-size: 12px; 
+    font-weight: 700;
+    padding: 6px 12px; 
+    border-radius: 6px; 
+    cursor: pointer; 
+    transition: all 0.15s; 
+    font-family: 'Nunito', sans-serif;
+  }
+  .msg-block-header button:hover { 
+    border-color: var(--text-main); 
+  }
+  .msg-block-header button.copied { 
+    background: #e6f4ea; 
+    border-color: #137333; 
+    color: #137333; 
+  }
+  .msg-text { 
+    padding: 16px; 
+    font-size: 14px; 
+    color: #444; 
+    line-height: 1.6; 
+    white-space: pre-wrap; 
+    font-family: 'Segoe UI', Arial, sans-serif;
+  }
 
-  .separator { border: none; border-top: 1px solid #2a2a2a; margin: 14px 0; }
-
-  .no-results { text-align: center; padding: 40px; color: #555; font-size: 14px; }
+  .no-results { text-align: center; padding: 60px 20px; color: var(--text-muted); font-size: 16px; font-weight: 600; }
+  
+  @media (max-width: 768px) {
+    .header, .search-section, .problems-grid { padding-left: 16px; padding-right: 16px; }
+    .detail { margin: 16px; }
+    .scenario-toggle { padding: 16px; flex-direction: column; align-items: flex-start; gap: 8px; }
+    .scenario-toggle .chevron { position: absolute; right: 24px; }
+  }
 </style>
 </head>
 <body>
 
 <div class="header">
-  <div class="logo">FIVE POINTS <span>BURGUER</span></div>
-  <div class="badge">POP · iFood</div>
+  <div class="logos">
+    <div class="brand-five">Five Points</div>
+    <span class="brand-divider">|</span>
+    <div class="brand-ifood">iFood</div>
+  </div>
+  <div class="badge">Procedimentos Operacionais</div>
 </div>
 
-<div class="search-bar">
-  <input type="text" id="searchInput" placeholder="🔍  Pesquise o problema (ex: incompleto, motoboy, atraso...)" oninput="filterProblems(this.value)" />
+<div class="search-section">
+  <h1>Como podemos ajudar hoje?</h1>
+  <div class="search-bar">
+    <div class="search-input-wrapper">
+      <span>🔍</span>
+      <input type="text" id="searchInput" placeholder="Pesquise o problema (ex: incompleto, motoboy, atraso...)" oninput="filterProblems(this.value)" />
+    </div>
+  </div>
 </div>
 
 <div class="problems-grid" id="problemsGrid">
 
+
   <button class="prob-btn" data-id="0" data-tags="incompleto item faltando falta pedido parcial cancelamento" onclick="toggleDetail(0)">
     <div class="prob-icon">📦</div>
     <div class="prob-title">Pedido incompleto</div>
-    <div class="prob-sub">Cliente alega item faltando</div>
+    <div class="prob-sub">Cliente alega item como batata ou refri faltando</div>
   </button>
 
   <button class="prob-btn" data-id="1" data-tags="erro producao lanche errado ingrediente producao qualidade bacon queijo" onclick="toggleDetail(1)">
@@ -129,6 +457,7 @@
     <div class="prob-sub">Cliente quer alterar endereço após confirmação</div>
   </button>
 
+
 </div>
 
 <div id="no-results" class="no-results" style="display:none;">Nenhum problema encontrado. Tente outro termo.</div>
@@ -136,7 +465,7 @@
 <!-- DETAIL 0: PEDIDO INCOMPLETO -->
 <div class="detail" id="detail-0">
   <div class="detail-header">
-    <h2>📦 Pedido Incompleto — Cliente alega item faltando</h2>
+    <h2>📦 PEDIDO INCOMPLETO — Cliente alega item como batata ou refri faltando</h2>
     <p>Primeiro: verifique a câmera da embalagem ANTES de qualquer resposta. Você tem 10 minutos para responder no Acordo Após Entrega.</p>
   </div>
   <div class="scenarios">
@@ -210,7 +539,7 @@ Prometemos que no próximo pedido vamos superar suas expectativas. Conte com a g
 <!-- DETAIL 1: ERRO NA PRODUÇÃO -->
 <div class="detail" id="detail-1">
   <div class="detail-header">
-    <h2>🍔 Erro na produção — Lanche feito incorretamente</h2>
+    <h2>🍔 ERRO NA PRODUÇÃO — LANCHE FEITO INCORRETAMENTE</h2>
     <p>Ingrediente errado, montagem incorreta, item diferente do pedido. Você tem 10 minutos para responder no Acordo Após Entrega.</p>
   </div>
   <div class="scenarios">
@@ -218,9 +547,7 @@ Prometemos que no próximo pedido vamos superar suas expectativas. Conte com a g
     <!-- ERRO A: PEQUENO VALOR -->
     <div class="scenario">
       <button class="scenario-toggle" onclick="toggleScenario(this)">
-        <span class="s-badge badge-err">✖ Erro confirmado</span>
-        Erro de pequeno valor — faltou ingrediente secundário (alface, tomate, cebola, picles, ovo)
-        <span class="chevron">▼</span>
+        <span class="s-badge" style="background-color: #ff9800; color: white; font-size: 14px; padding: 6px 12px;">ERRO DE PEQUENO VALOR</span> <span style="font-size: 14px; text-transform: uppercase;">— FALTOU INGREDIENTE SECUNDÁRIO (ALFACE, TOMATE, CEBOLA, PICLES, OVO)</span> <span class="chevron">▼</span>
       </button>
       <div class="scenario-body">
         <div class="alert-box orange">💰 <strong>Tabela de reembolso:</strong> Alface, tomate, cebola picada ou picles = <strong>R$ 3,00</strong> &nbsp;|&nbsp; Ovo = <strong>R$ 4,00</strong></div>
@@ -249,9 +576,7 @@ Nosso compromisso é sempre entregar o melhor — e queremos muito que você nos
     <!-- ERRO B: DESCARACTERIZA O LANCHE -->
     <div class="scenario">
       <button class="scenario-toggle" onclick="toggleScenario(this)">
-        <span class="s-badge badge-err">✖ Erro confirmado</span>
-        Erro grave — lanche descaracterizado (faltou bacon ou queijo empanado)
-        <span class="chevron">▼</span>
+        <span class="s-badge" style="background-color: var(--ifood-red); color: white; font-size: 14px; padding: 6px 12px;">ERRO GRAVE</span> <span style="font-size: 14px; text-transform: uppercase;">— LANCHE DESCARACTERIZADO (FALTOU BACON, GELEIA DE BACON, QUEIJO OU QUEIJO EMPANADO)</span> <span class="chevron">▼</span>
       </button>
       <div class="scenario-body">
         <div class="alert-box orange">💰 <strong>Tabela de reembolso (se cliente recusar reenvio):</strong> Bacon chapa = <strong>R$ 6,00</strong> &nbsp;|&nbsp; Bacon empanado = <strong>R$ 8,00</strong> &nbsp;|&nbsp; Queijo empanado = <strong>R$ 15,00</strong></div>
@@ -289,8 +614,7 @@ Esperamos poder te atender muito melhor em uma próxima oportunidade! 🙏</div>
 
     <div class="scenario">
       <button class="scenario-toggle" onclick="toggleScenario(this)">
-        <span class="s-badge badge-warn">? Alegação duvidosa</span>
-        Cliente alega erro mas câmera/comanda indicam produção correta
+        <span class="s-badge badge-warn" style="font-size: 14px; padding: 6px 12px;">? ALEGAÇÃO DUVIDOSA</span> <span style="font-size: 14px; text-transform: uppercase;">— CLIENTE ALEGA ERRO MAS CÂMERA/COMANDA INDICAM PRODUÇÃO CORRETA</span>
         <span class="chevron">▼</span>
       </button>
       <div class="scenario-body">
@@ -321,7 +645,7 @@ Caso queira, podemos conversar mais sobre o ocorrido para entender melhor o que 
 <!-- DETAIL 2: PEDIDOS TROCADOS -->
 <div class="detail" id="detail-2">
   <div class="detail-header">
-    <h2>🔄 Pedidos trocados pelo motoboy iFood</h2>
+    <h2>🔄 PEDIDOS TROCADOS PELO MOTOBOY IFOOD</h2>
     <p>Responsabilidade é da logística iFood — não assuma o cancelamento. Usamos logística iFood (Plano Entrega), então o iFood analisa quem causou o problema.</p>
   </div>
   <div class="scenarios">
@@ -367,7 +691,7 @@ Lamentamos muito que sua experiência tenha sido assim — esperamos que possamo
 <!-- DETAIL 3: CLIENTE NÃO RECEBEU -->
 <div class="detail" id="detail-3">
   <div class="detail-header">
-    <h2>📍 Cliente alega que não recebeu o pedido</h2>
+    <h2>📍 CLIENTE ALEGA QUE NÃO RECEBEU O PEDIDO</h2>
     <p>VERIFIQUE O STATUS no sistema antes de qualquer resposta. Você tem 10 min no Acordo Após Entrega.</p>
   </div>
   <div class="scenarios">
@@ -479,7 +803,7 @@ Recomendamos que abra a contestação pelo aplicativo para que possam investigar
 <!-- DETAIL 4: ATRASO NA ENTREGA -->
 <div class="detail" id="detail-4">
   <div class="detail-header">
-    <h2>⏰ Atraso na entrega — Coleta ou rota com problemas</h2>
+    <h2>⏰ ATRASO NA ENTREGA — COLETA OU ROTA COM PROBLEMAS</h2>
     <p>COMUNIQUE antes que o cliente reclame. Você tem 10 min no Acordo Após Entrega se houver solicitação.</p>
   </div>
   <div class="scenarios">
@@ -553,7 +877,7 @@ Seu pedido está sendo preparado com todo carinho e te avisamos assim que sair p
 <!-- DETAIL 5: COMPLEMENTAÇÃO DE PEDIDO -->
 <div class="detail" id="detail-5">
   <div class="detail-header">
-    <h2>➕ Complementação de pedido — Item adicional solicitado</h2>
+    <h2>➕ COMPLEMENTAÇÃO DE PEDIDO — ITEM ADICIONAL SOLICITADO</h2>
     <p>NUNCA adicione itens sem pagamento prévio confirmado. Siga o fluxo correto conforme o canal.</p>
   </div>
   <div class="scenarios">
@@ -608,7 +932,7 @@ Se quiser, é só fazer um novo pedido pelo app! Estamos aqui para atender. 🙏
 <!-- DETAIL 6: TROCA DE ENDEREÇO -->
 <div class="detail" id="detail-6">
   <div class="detail-header">
-    <h2>📌 Troca de endereço de entrega</h2>
+    <h2>📌 TROCA DE ENDEREÇO DE ENTREGA</h2>
     <p>NÃO é possível alterar o endereço após a confirmação do pedido. Oriente o cliente pelas opções disponíveis.</p>
   </div>
   <div class="scenarios">
@@ -643,6 +967,8 @@ Lamentamos o transtorno e estamos à disposição! 🙏</div>
   </div>
 </div>
 
+
+
 <script>
 let activeDetail = null;
 
@@ -650,12 +976,14 @@ function toggleDetail(id) {
   const btn = document.querySelector(`.prob-btn[data-id="${id}"]`);
   const detail = document.getElementById(`detail-${id}`);
 
-  // sempre reseta TODOS os cenários de TODOS os detalhes
+  if (!detail) return;
+
+  // reseta TODOS os cenários de TODOS os detalhes
   document.querySelectorAll('.scenario-toggle.open, .scenario-body.open').forEach(el => el.classList.remove('open'));
 
   if (activeDetail === id) {
     detail.classList.remove('visible');
-    btn.classList.remove('active');
+    if (btn) btn.classList.remove('active');
     activeDetail = null;
     return;
   }
@@ -664,10 +992,10 @@ function toggleDetail(id) {
   document.querySelectorAll('.prob-btn.active').forEach(b => b.classList.remove('active'));
 
   detail.classList.add('visible');
-  btn.classList.add('active');
+  if (btn) btn.classList.add('active');
   activeDetail = id;
 
-  setTimeout(() => detail.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+  setTimeout(() => detail.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
 }
 
 function toggleScenario(btn) {
