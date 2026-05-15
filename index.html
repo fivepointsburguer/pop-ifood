@@ -23,19 +23,19 @@
   .prob-btn:hover { border-color: #c0392b; background: #252525; }
   .prob-btn.active { border-color: #c0392b; background: #2a1616; color: #fff; }
   .prob-btn .prob-icon { font-size: 22px; }
-  .prob-btn .prob-title { font-weight: 600; font-size: 13px; }
-  .prob-btn .prob-sub { font-size: 11px; color: #888; }
+  .prob-btn .prob-title { font-weight: 600; font-size: 13px; text-transform: uppercase; }
+  .prob-btn .prob-sub { font-size: 11px; color: #888; text-transform: uppercase; }
 
   .detail { display: none; margin: 0 24px 24px; background: #1a1a1a; border: 1px solid #333; border-radius: 10px; overflow: hidden; }
   .detail.visible { display: block; }
   .detail-header { background: #c0392b; padding: 14px 20px; }
-  .detail-header h2 { font-size: 15px; font-weight: 700; color: #fff; }
-  .detail-header p { font-size: 12px; color: rgba(255,255,255,0.75); margin-top: 3px; }
+  .detail-header h2 { font-size: 15px; font-weight: 700; color: #fff; text-transform: uppercase; }
+  .detail-header p { font-size: 12px; color: rgba(255,255,255,0.75); margin-top: 3px; text-transform: uppercase; }
 
   .scenarios { padding: 0; }
   .scenario { border-bottom: 1px solid #2a2a2a; }
   .scenario:last-child { border-bottom: none; }
-  .scenario-toggle { width: 100%; background: none; border: none; padding: 14px 20px; cursor: pointer; display: flex; align-items: center; gap: 10px; color: #ddd; font-size: 13px; font-weight: 600; text-align: left; }
+  .scenario-toggle { width: 100%; background: none; border: none; padding: 14px 20px; cursor: pointer; display: flex; align-items: center; gap: 10px; color: #ddd; font-size: 13px; font-weight: 600; text-align: left; text-transform: uppercase; }
   .scenario-toggle:hover { background: #222; }
   .scenario-toggle .s-badge { font-size: 10px; padding: 3px 8px; border-radius: 12px; font-weight: 700; }
   .badge-ok { background: #1a4a2a; color: #4caf50; }
@@ -93,7 +93,7 @@
     <div class="prob-sub">Cliente alega item faltando</div>
   </button>
 
-  <button class="prob-btn" data-id="1" data-tags="erro producao lanche errado ingrediente producao qualidade" onclick="toggleDetail(1)">
+  <button class="prob-btn" data-id="1" data-tags="erro producao lanche errado ingrediente producao qualidade bacon queijo" onclick="toggleDetail(1)">
     <div class="prob-icon">🍔</div>
     <div class="prob-title">Erro na produção</div>
     <div class="prob-sub">Lanche feito errado</div>
@@ -105,25 +105,25 @@
     <div class="prob-sub">Motoboy entregou no endereço errado</div>
   </button>
 
-  <button class="prob-btn" data-id="3" data-tags="motoboy chegou nao chegou sistema falha entrega nao entregue codigo recebimento confirmacao" onclick="toggleDetail(3)">
+  <button class="prob-btn" data-id="3" data-tags="nao recebeu nao chegou sistema marcou codigo confirmado entrega" onclick="toggleDetail(3)">
     <div class="prob-icon">📍</div>
     <div class="prob-title">Cliente não recebeu o pedido</div>
     <div class="prob-sub">Não entregue, sistema marcou ou código confirmado</div>
   </button>
 
-  <button class="prob-btn" data-id="4" data-tags="atraso coleta entregador nao atribuido parado demora sem entregador chuva alta demanda" onclick="toggleDetail(4)">
+  <button class="prob-btn" data-id="4" data-tags="atraso coleta entregador nao atribuido parado demora chuva alta demanda" onclick="toggleDetail(4)">
     <div class="prob-icon">⏰</div>
     <div class="prob-title">Atraso na entrega</div>
     <div class="prob-sub">Sem entregador, chuva ou alta demanda</div>
   </button>
 
-  <button class="prob-btn" data-id="5" data-tags="complementacao pedido adicionar item chat whatsapp pix adicional" onclick="toggleDetail(5)">
+  <button class="prob-btn" data-id="5" data-tags="complemento adicional item extra whatsapp chat pix pagamento" onclick="toggleDetail(5)">
     <div class="prob-icon">➕</div>
     <div class="prob-title">Complementação de pedido</div>
     <div class="prob-sub">Cliente quer adicionar item via chat ou WhatsApp</div>
   </button>
 
-  <button class="prob-btn" data-id="6" data-tags="troca endereco entrega mudar alterar pedido confirmado" onclick="toggleDetail(6)">
+  <button class="prob-btn" data-id="6" data-tags="endereco troca alterar mudar endereço entrega confirmado" onclick="toggleDetail(6)">
     <div class="prob-icon">📌</div>
     <div class="prob-title">Troca de endereço</div>
     <div class="prob-sub">Cliente quer alterar endereço após confirmação</div>
@@ -190,7 +190,7 @@ Esperamos que possamos resolver isso da melhor forma e que você dê outra chanc
           <div class="step"><div class="step-num orange">3</div><span>Envie a mensagem abaixo no chat com tom de genuína correção.</span></div>
           <div class="step"><div class="step-num orange">4</div><span>Registre internamente o erro para evitar recorrência (informe o supervisor).</span></div>
         </div>
-        <div class="alert-box red">⚠️ <strong>Não aceite o cancelamento total</strong> se o erro foi só em 1 item. Negocie sempre o reembolso parcial apenas do item que faltou.</div>
+        <div class="alert-box red">⚠️ <strong>NÃO ACEITE O CANCELAMENTO TOTAL</strong> se o erro foi só em 1 item. NEGOCIE SEMPRE o reembolso parcial apenas do item que faltou.</div>
         <div class="msg-block">
           <div class="msg-block-header"><span>💬 Mensagem para o cliente (chat iFood)</span><button onclick="copyMsg(this)">Copiar</button></div>
           <div class="msg-text">Olá! Equipe Five Points Burguer aqui. 🍔
@@ -215,22 +215,24 @@ Prometemos que no próximo pedido vamos superar suas expectativas. Conte com a g
   </div>
   <div class="scenarios">
 
+    <!-- ERRO A: PEQUENO VALOR -->
     <div class="scenario">
       <button class="scenario-toggle" onclick="toggleScenario(this)">
         <span class="s-badge badge-err">✖ Erro confirmado</span>
-        Erro de produção verificado (ingrediente errado, montagem errada)
+        Erro de pequeno valor — faltou ingrediente secundário (alface, tomate, cebola, picles, ovo)
         <span class="chevron">▼</span>
       </button>
       <div class="scenario-body">
+        <div class="alert-box orange">💰 <strong>Tabela de reembolso:</strong> Alface, tomate, cebola picada ou picles = <strong>R$ 3,00</strong> &nbsp;|&nbsp; Ovo = <strong>R$ 4,00</strong></div>
         <div class="steps">
           <h4>📋 Passo a passo</h4>
           <div class="step"><div class="step-num orange">1</div><span>Acesse o Acordo Após Entrega no Gestor de Pedidos.</span></div>
-          <div class="step"><div class="step-num orange">2</div><span>Use <strong>"Negociar valor de reembolso"</strong> — proponha o valor do item errado, não do pedido completo.</span></div>
+          <div class="step"><div class="step-num orange">2</div><span>Use <strong>"Negociar valor de reembolso"</strong> — proponha o valor conforme a tabela acima.</span></div>
           <div class="step"><div class="step-num orange">3</div><span>Envie a mensagem abaixo via chat do iFood.</span></div>
-          <div class="step"><div class="step-num orange">4</div><span>Registre internamente com o supervisor: qual foi o erro, em qual praça e por quem foi produzido.</span></div>
+          <div class="step"><div class="step-num orange">4</div><span>Registre internamente: qual foi o erro, em qual praça e por quem foi produzido.</span></div>
         </div>
         <div class="alert-box orange">🔔 <strong>Alerta para outras praças:</strong> erros de produção frequentes podem indicar problema no check-list de início de operação (conferência de insumos) ou na comanda. Reforce a conferência item a item com iniciais do conferente.</div>
-        <div class="alert-box red">⚠️ <strong>Não aceite cancelamento total</strong> se apenas 1 item estava errado. Negocie sempre o reembolso parcial.</div>
+        <div class="alert-box red">⚠️ <strong>NÃO ACEITE CANCELAMENTO TOTAL</strong> por item secundário. NEGOCIE SEMPRE o reembolso parcial conforme tabela.</div>
         <div class="msg-block">
           <div class="msg-block-header"><span>💬 Mensagem para o cliente (chat iFood)</span><button onclick="copyMsg(this)">Copiar</button></div>
           <div class="msg-text">Olá! Aqui é a equipe Five Points Burguer. 🍔
@@ -240,6 +242,47 @@ Pedimos muitas desculpas pelo erro na preparação do seu pedido. Reconhecemos q
 Já providenciamos o reembolso referente ao item em questão pelo iFood.
 
 Nosso compromisso é sempre entregar o melhor — e queremos muito que você nos dê uma nova chance para provar isso. Obrigado pela compreensão! 🙏</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ERRO B: DESCARACTERIZA O LANCHE -->
+    <div class="scenario">
+      <button class="scenario-toggle" onclick="toggleScenario(this)">
+        <span class="s-badge badge-err">✖ Erro confirmado</span>
+        Erro grave — lanche descaracterizado (faltou bacon ou queijo empanado)
+        <span class="chevron">▼</span>
+      </button>
+      <div class="scenario-body">
+        <div class="alert-box orange">💰 <strong>Tabela de reembolso (se cliente recusar reenvio):</strong> Bacon chapa = <strong>R$ 6,00</strong> &nbsp;|&nbsp; Bacon empanado = <strong>R$ 8,00</strong> &nbsp;|&nbsp; Queijo empanado = <strong>R$ 15,00</strong></div>
+        <div class="steps">
+          <h4>📋 Passo a passo</h4>
+          <div class="step"><div class="step-num orange">1</div><span>Acesse o Acordo Após Entrega no Gestor de Pedidos.</span></div>
+          <div class="step"><div class="step-num orange">2</div><span><strong>PRIMEIRO: OFEREÇA O REENVIO do lanche correto.</strong> Envie a mensagem de reenvio abaixo.</span></div>
+          <div class="step"><div class="step-num orange">3</div><span>Se o cliente <strong>NÃO quiser o novo lanche</strong>: use <strong>"Negociar valor de reembolso"</strong> e proponha o valor do item faltante conforme a tabela acima.</span></div>
+          <div class="step"><div class="step-num orange">4</div><span>Se o cliente <strong>NÃO aceitar o reembolso parcial</strong>: o iFood deverá aceitar o cancelamento, pois o erro foi nosso e o lanche foi descaracterizado.</span></div>
+          <div class="step"><div class="step-num orange">5</div><span>Registre internamente: qual foi o erro, em qual praça e por quem foi produzido.</span></div>
+        </div>
+        <div class="alert-box red">⚠️ <strong>TENTE SEMPRE O REENVIO PRIMEIRO.</strong> O reenvio preserva a experiência do cliente e evita perda total. Só aceite cancelamento se o cliente recusar reenvio E reembolso parcial.</div>
+        <div class="msg-block">
+          <div class="msg-block-header"><span>💬 Mensagem 1 — Proposta de reenvio do lanche</span><button onclick="copyMsg(this)">Copiar</button></div>
+          <div class="msg-text">Olá! Aqui é a equipe Five Points Burguer. 🍔
+
+Pedimos muitas desculpas — identificamos um erro na montagem do seu lanche e reconhecemos que ele não saiu como deveria.
+
+Para resolver isso da melhor forma, gostaríamos de preparar e enviar um novo lanche correto para você, sem nenhum custo adicional.
+
+Você aceita que a gente envie um novo lanche? É só confirmar aqui! 🙏</div>
+        </div>
+        <div class="msg-block">
+          <div class="msg-block-header"><span>💬 Mensagem 2 — Se cliente recusar reenvio (proposta de reembolso parcial)</span><button onclick="copyMsg(this)">Copiar</button></div>
+          <div class="msg-text">Olá! Equipe Five Points Burguer aqui. 🍔
+
+Entendemos sua decisão e pedimos novamente desculpas pelo transtorno.
+
+Nesse caso, vamos processar o reembolso referente ao item que estava faltando no seu lanche, conforme a tabela de valores do iFood.
+
+Esperamos poder te atender muito melhor em uma próxima oportunidade! 🙏</div>
         </div>
       </div>
     </div>
@@ -321,7 +364,7 @@ Lamentamos muito que sua experiência tenha sido assim — esperamos que possamo
   </div>
 </div>
 
-<!-- DETAIL 3: CLIENTE NÃO RECEBEU O PEDIDO -->
+<!-- DETAIL 3: CLIENTE NÃO RECEBEU -->
 <div class="detail" id="detail-3">
   <div class="detail-header">
     <h2>📍 Cliente alega que não recebeu o pedido</h2>
@@ -338,10 +381,10 @@ Lamentamos muito que sua experiência tenha sido assim — esperamos que possamo
       <div class="scenario-body">
         <div class="steps">
           <h4>📋 Passo a passo</h4>
-          <div class="step"><div class="step-num orange">1</div><span>Acesse o Gestor de Pedidos e VERIFIQUE o status atual da entrega.</span></div>
-          <div class="step"><div class="step-num orange">2</div><span>LOCALIZE onde está o motoboy pelo rastreamento do app.</span></div>
-          <div class="step"><div class="step-num orange">3</div><span>COMUNIQUE ao cliente imediatamente com a mensagem abaixo, informando o status e a previsão.</span></div>
-          <div class="step"><div class="step-num orange">4</div><span>Se o pedido estiver parado ou sem atualização, ACIONE o suporte iFood pelo Gestor.</span></div>
+          <div class="step"><div class="step-num">1</div><span>Acesse o Gestor de Pedidos e VERIFIQUE o status atual da entrega.</span></div>
+          <div class="step"><div class="step-num">2</div><span>LOCALIZE onde está o motoboy pelo rastreamento do app.</span></div>
+          <div class="step"><div class="step-num">3</div><span>COMUNIQUE ao cliente imediatamente com a mensagem abaixo, informando o status e a previsão.</span></div>
+          <div class="step"><div class="step-num">4</div><span>Se o pedido estiver parado ou sem atualização, ACIONE o suporte iFood pelo Gestor.</span></div>
         </div>
         <div class="alert-box orange">⏱ ANTECIPE a comunicação — o cliente odeia atraso, mas odeia mais ainda a FALTA DE COMUNICAÇÃO.</div>
         <div class="msg-block">
@@ -356,12 +399,12 @@ Assim que houver alguma atualização, te avisamos. Agradecemos sua paciência! 
     </div>
 
     <div class="scenario">
-      <button class="scenario-toggle open" onclick="toggleScenario(this)">
+      <button class="scenario-toggle" onclick="toggleScenario(this)">
         <span class="s-badge badge-ext">↗ iFood responsável</span>
         Sistema marca "Entregue" mas cliente não recebeu — SEM código de confirmação
         <span class="chevron">▼</span>
       </button>
-      <div class="scenario-body open">
+      <div class="scenario-body">
         <div class="steps">
           <h4>📋 Passo a passo</h4>
           <div class="step"><div class="step-num blue">1</div><span>ACESSE o Acordo Após Entrega → CLIQUE em <strong>Discordar</strong>.</span></div>
@@ -389,7 +432,7 @@ Pedimos desculpas pelo transtorno e esperamos que isso seja resolvido rapidament
 
     <div class="scenario">
       <button class="scenario-toggle" onclick="toggleScenario(this)">
-        <span class="s-badge badge-err">🔐 Código confirmado</span>
+        <span class="s-badge badge-ok">🔐 Código confirmado</span>
         Pedido consta como entregue COM código de recebimento registrado
         <span class="chevron">▼</span>
       </button>
@@ -399,7 +442,7 @@ Pedimos desculpas pelo transtorno e esperamos que isso seja resolvido rapidament
           <div class="step"><div class="step-num">1</div><span>CONFIRME no sistema que o código de recebimento foi registrado.</span></div>
           <div class="step"><div class="step-num">2</div><span>ENVIE a mensagem abaixo ao cliente — tom empático mas firme.</span></div>
           <div class="step"><div class="step-num">3</div><span>Se o cliente insistir, envie a segunda mensagem reforçando o argumento do código e ORIENTE a abrir contestação diretamente no app.</span></div>
-          <div class="step"><div class="step-num blue">4</div><span>NÃO aceite cancelamento — o código de entrega é de responsabilidade do cliente. Acesse o Acordo Após Entrega e DISCORDE da solicitação citando o código registrado.</span></div>
+          <div class="step"><div class="step-num red">4</div><span>NÃO aceite cancelamento — o código de entrega é de responsabilidade do cliente. Acesse o Acordo Após Entrega e DISCORDE da solicitação citando o código registrado.</span></div>
         </div>
         <div class="alert-box red">🔐 O CÓDIGO DE RECEBIMENTO é digitado pelo próprio cliente no app do entregador. Nós, como restaurante, NÃO temos acesso a esse código. O registro dele no sistema é prova de recebimento.</div>
         <div class="alert-box blue">ℹ️ Se houver disputa, o iFood analisa o caso. Nossa responsabilidade termina na coleta pelo motoboy — CÂMERAS comprovam.</div>
@@ -480,9 +523,9 @@ Assim que o pedido for coletado, ele estará a caminho! Pedimos desculpas pela e
       <div class="scenario-body">
         <div class="steps">
           <h4>📋 Passo a passo</h4>
-          <div class="step"><div class="step-num orange">1</div><span>PERCEBEU que o pedido vai atrasar? COMUNIQUE imediatamente pelo chat do iFood — NÃO espere o cliente reclamar.</span></div>
-          <div class="step"><div class="step-num orange">2</div><span>EXPLIQUE o motivo (chuva ou alta demanda) e ofereça uma PREVISÃO atualizada de entrega.</span></div>
-          <div class="step"><div class="step-num orange">3</div><span>AVISE também quando o pedido sair para entrega.</span></div>
+          <div class="step"><div class="step-num">1</div><span>PERCEBEU que o pedido vai atrasar? COMUNIQUE imediatamente pelo chat do iFood — NÃO espere o cliente reclamar.</span></div>
+          <div class="step"><div class="step-num">2</div><span>EXPLIQUE o motivo (chuva ou alta demanda) e ofereça uma PREVISÃO atualizada de entrega.</span></div>
+          <div class="step"><div class="step-num">3</div><span>AVISE também quando o pedido sair para entrega.</span></div>
         </div>
         <div class="alert-box orange">⚠️ O cliente tolera o atraso, mas NÃO TOLERA a falta de comunicação. ANTECIPE sempre.</div>
         <div class="msg-block">
@@ -540,19 +583,19 @@ Se quiser, é só fazer um novo pedido pelo app! Estamos aqui para atender. 🙏
     </div>
 
     <div class="scenario">
-      <button class="scenario-toggle open" onclick="toggleScenario(this)">
-        <span class="s-badge badge-warn">📱 Via WhatsApp</span>
+      <button class="scenario-toggle" onclick="toggleScenario(this)">
+        <span class="s-badge badge-ok">📱 Via WhatsApp</span>
         Cliente pede complemento pelo WhatsApp para pedido feito no iFood
         <span class="chevron">▼</span>
       </button>
-      <div class="scenario-body open">
+      <div class="scenario-body">
         <div class="steps">
           <h4>📋 Passo a passo</h4>
-          <div class="step"><div class="step-num orange">1</div><span>ANOTE o pedido e informe ao cliente que o complemento só pode ser feito com PIX ANTECIPADO.</span></div>
-          <div class="step"><div class="step-num orange">2</div><span>LANCE no sistema de vendas. No campo do pager use: <strong>Primeiro nome – Ifood – Nº pedido</strong>.</span></div>
-          <div class="step"><div class="step-num orange">3</div><span>Selecione pagamento via PIX e FORNEÇA a chave ao cliente: <strong>CNPJ 45.085.563/0001-68</strong>.</span></div>
-          <div class="step"><div class="step-num orange">4</div><span>AGUARDE o comprovante de pagamento ANTES de liberar para produção.</span></div>
-          <div class="step"><div class="step-num orange">5</div><span>LEVE a comanda até a cozinha e FIXE junto ao pedido original — explique ao montador que deve acrescer ao pedido principal.</span></div>
+          <div class="step"><div class="step-num">1</div><span>ANOTE o pedido e informe ao cliente que o complemento só pode ser feito com PIX ANTECIPADO.</span></div>
+          <div class="step"><div class="step-num">2</div><span>LANCE no sistema de vendas. No campo do pager use: <strong>Primeiro nome – Ifood – Nº pedido</strong>.</span></div>
+          <div class="step"><div class="step-num">3</div><span>Selecione pagamento via PIX e FORNEÇA a chave ao cliente: <strong>CNPJ 45.085.563/0001-68</strong>.</span></div>
+          <div class="step"><div class="step-num">4</div><span>AGUARDE o comprovante de pagamento ANTES de liberar para produção.</span></div>
+          <div class="step"><div class="step-num">5</div><span>LEVE a comanda até a cozinha e FIXE junto ao pedido original — explique ao montador que deve acrescer ao pedido principal.</span></div>
         </div>
         <div class="alert-box red">⚠️ NUNCA envie o complemento sem o comprovante de PIX confirmado. SEM PAGAMENTO = SEM PRODUÇÃO.</div>
         <div class="alert-box blue">ℹ️ Chave PIX: CNPJ <strong>45.085.563/0001-68</strong> (Geada Fria Alimentos Ltda)</div>
@@ -607,7 +650,7 @@ function toggleDetail(id) {
   const btn = document.querySelector(`.prob-btn[data-id="${id}"]`);
   const detail = document.getElementById(`detail-${id}`);
 
-  // reseta TODOS os cenários de TODOS os detalhes antes de qualquer ação
+  // sempre reseta TODOS os cenários de TODOS os detalhes
   document.querySelectorAll('.scenario-toggle.open, .scenario-body.open').forEach(el => el.classList.remove('open'));
 
   if (activeDetail === id) {
