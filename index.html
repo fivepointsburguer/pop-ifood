@@ -251,6 +251,7 @@
   .step-num.blue { background: #1967d2; }
   .step-num.green { background: #137333; }
   .step-num.orange { background: #e65100; }
+  .step-num.purple { background: #6a1b9a; }
 
   .alert-box { background: #e6f4ea; border-radius: var(--radius-sm); padding: 16px; font-size: 14px; color: #137333; margin: 16px 0; line-height: 1.5; font-weight: 600; display: flex; gap: 10px; align-items: flex-start; }
   .alert-box.red { background: #fce8e6; color: #c5221f; }
@@ -304,7 +305,7 @@
   <div class="search-bar">
     <div class="search-input-wrapper">
       <span>🔍</span>
-      <input type="text" id="searchInput" placeholder="Pesquise o problema (ex: incompleto, carne, atraso...)" oninput="filterProblems(this.value)" />
+      <input type="text" id="searchInput" placeholder="Pesquise o problema (ex: incompleto, carne, objeto, estragado...)" oninput="filterProblems(this.value)" />
     </div>
   </div>
 </div>
@@ -317,6 +318,9 @@
   </div>
 
   <div class="problems-grid">
+    <button class="prob-btn" data-id="ifood-9" data-tags="cabelo plastico bicho estragado gosto estranho objeto lixo" onclick="toggleDetail('ifood-9')">
+      <div class="prob-icon">🦠</div><div class="prob-title">Objeto estranho / Gosto</div><div class="prob-sub">Cabelo, bicho, estragado</div>
+    </button>
     <button class="prob-btn" data-id="ifood-0" data-tags="incompleto item faltando falta pedido parcial" onclick="toggleDetail('ifood-0')">
       <div class="prob-icon">📦</div><div class="prob-title">Pedido incompleto</div><div class="prob-sub">Cliente alega item faltando</div>
     </button>
@@ -347,6 +351,53 @@
   </div>
 
   <div id="no-results-ifood" class="no-results" style="display:none;">Nenhum problema encontrado no iFood. Tente outro termo.</div>
+
+  <div class="detail" id="detail-ifood-9">
+    <div class="detail-header">
+      <h2>🦠 OBJETO ESTRANHO NO LANCHE OU GOSTO DE ESTRAGADO</h2>
+      <p>Problema gravíssimo. O foco é resolver rápido e OBRIGATORIAMENTE recolher a amostra para análise.</p>
+    </div>
+    <div class="scenarios">
+      <div class="scenario">
+        <button class="scenario-toggle" onclick="toggleScenario(this)">
+          <span class="s-badge badge-ok">✔ Cliente aceita a troca e devolução</span> Foco na resolução rápida <span class="chevron">▼</span>
+        </button>
+        <div class="scenario-body">
+          <div class="steps">
+            <h4>📋 Passo a passo</h4>
+            <div class="step"><div class="step-num green">1</div><span>Peça desculpas genuínas no chat do iFood e ofereça imediatamente a troca do lanche.</span></div>
+            <div class="step"><div class="step-num green">2</div><span><strong>Acordo com o Motoboy:</strong> Ao despachar o novo lanche, avise o motoboy: "Tem R$ 10 em dinheiro te esperando na volta se você trouxer o lanche da reclamação de volta pra gente".</span></div>
+            <div class="step"><div class="step-num orange">3</div><span>Ao receber o lanche de volta, encaminhe direto para a gerência/supervisão avaliar a falha.</span></div>
+          </div>
+          <div class="msg-block">
+            <div class="msg-block-header"><span>💬 Mensagem — Proposta de Troca</span><button onclick="copyMsg(this)">Copiar</button></div>
+            <div class="msg-text">Olá! Aqui é a equipe Five Points Burguer. 🍔
+
+Pedimos muitas desculpas por essa situação. Levamos a segurança alimentar muito a sério. Para resolvermos isso agora, vamos preparar um lanche novinho e mandar para você. 
+
+Pedimos apenas que você coloque o lanche com problema de volta na embalagem e entregue para o nosso motoboy. Precisamos recolher esse produto para análise do nosso controle de qualidade. O motoboy já está saindo! 🙏</div>
+          </div>
+        </div>
+      </div>
+      <div class="scenario">
+        <button class="scenario-toggle" onclick="toggleScenario(this)">
+          <span class="s-badge badge-err">🚨 ALERTA DE MENTIRA</span> Cliente diz que jogou fora ou recusa devolução <span class="chevron">▼</span>
+        </button>
+        <div class="scenario-body">
+          <div class="alert-box red">⚠️ Se não há produto para análise, não há troca nem estorno aprovado por nós.</div>
+          <div class="steps">
+            <h4>📋 Passo a passo</h4>
+            <div class="step"><div class="step-num red">1</div><span>Acesse o <strong>Acordo Após Entrega</strong> e clique em <strong>Discordar</strong>.</span></div>
+            <div class="step"><div class="step-num red">2</div><span>Na justificativa (que o iFood e o cliente vão ler), seja técnico, cite as normas de segurança e não use a palavra "fraude".</span></div>
+          </div>
+          <div class="msg-block">
+            <div class="msg-block-header"><span>💬 Mensagem/Justificativa para o iFood e Cliente</span><button onclick="copyMsg(this)">Copiar</button></div>
+            <div class="msg-text">Discordamos da solicitação de cancelamento. O cliente relatou uma não conformidade no alimento, porém informou ter descartado o produto. De acordo com os Procedimentos Operacionais Padrão (POP) do nosso Controle de Qualidade, a coleta da amostra é obrigatória para rastreabilidade e análise da vigilância. Sem a devolução física do item reclamado, ficamos impossibilitados de validar a falha e autorizar o estorno ou reenvio.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="detail" id="detail-ifood-0">
     <div class="detail-header">
@@ -670,6 +721,9 @@ Pedimos muitas desculpas! Verificamos aqui e realmente houve uma confusão na no
 <div id="takeat-content" class="platform-content">
 
   <div class="problems-grid">
+    <button class="prob-btn" data-id="takeat-6" data-tags="cabelo plastico bicho estragado gosto estranho objeto lixo" onclick="toggleDetail('takeat-6')">
+      <div class="prob-icon" style="color: var(--takeat-color);">🦠</div><div class="prob-title">Objeto estranho / Gosto</div><div class="prob-sub">Cabelo, bicho, estragado</div>
+    </button>
     <button class="prob-btn" data-id="takeat-1" data-tags="falta item incompleto erro producao carne montagem" onclick="toggleDetail('takeat-1')">
       <div class="prob-icon" style="color: var(--takeat-color);">📦</div><div class="prob-title">Faltou Item / Erro Produção</div><div class="prob-sub">Agilidade na troca via WhatsApp</div>
     </button>
@@ -688,6 +742,53 @@ Pedimos muitas desculpas! Verificamos aqui e realmente houve uma confusão na no
   </div>
 
   <div id="no-results-takeat" class="no-results" style="display:none;">Nenhum problema encontrado no Takeat. Tente outro termo.</div>
+
+  <div class="detail" id="detail-takeat-6">
+    <div class="detail-header">
+      <h2>🦠 OBJETO ESTRANHO NO LANCHE OU GOSTO DE ESTRAGADO</h2>
+      <p>Nenhuma devolução de valor ou envio de novo produto será feita sem recolher a amostra primeiro.</p>
+    </div>
+    <div class="scenarios">
+      <div class="scenario">
+        <button class="scenario-toggle" onclick="toggleScenario(this)">
+          <span class="s-badge badge-ok">✔ Cliente aceita a troca e devolução</span> Solução rápida e amigável <span class="chevron">▼</span>
+        </button>
+        <div class="scenario-body">
+          <div class="steps">
+            <h4>📋 Passo a passo</h4>
+            <div class="step"><div class="step-num green">1</div><span>Peça desculpas no WhatsApp, acione um novo motoboy parceiro.</span></div>
+            <div class="step"><div class="step-num green">2</div><span><strong>Acordo com o Motoboy:</strong> Combine com o motoboy diretamente o pagamento de R$ 10 em dinheiro se ele trouxer a embalagem de volta com o lanche problemático.</span></div>
+            <div class="step"><div class="step-num orange">3</div><span>Guarde a amostra que retornar para auditoria do supervisor.</span></div>
+          </div>
+          <div class="msg-block">
+            <div class="msg-block-header"><span>💬 Mensagem — Proposta de Troca</span><button onclick="copyMsg(this)">Copiar</button></div>
+            <div class="msg-text">Olá! Pedimos nossas mais sinceras desculpas por essa situação. Aqui na Five Points nosso controle é rigoroso, e isso foge totalmente do nosso padrão. Vamos enviar um pedido novinho para você agora mesmo! 
+
+Pedimos a gentileza de colocar o lanche com problema de volta na embalagem e entregar ao nosso motoboy na hora da troca, pois a gerência precisa dessa amostra para acionar a auditoria de qualidade na cozinha. Já estamos mandando! 🙏</div>
+          </div>
+        </div>
+      </div>
+      <div class="scenario">
+        <button class="scenario-toggle" onclick="toggleScenario(this)">
+          <span class="s-badge badge-err">🚨 ALERTA DE MENTIRA</span> Cliente diz que jogou fora ou recusa devolução <span class="chevron">▼</span>
+        </button>
+        <div class="scenario-body">
+          <div class="alert-box red">⚠️ Se o cliente não tem o produto, a loja não arca com o prejuízo e não emite PIX de estorno.</div>
+          <div class="steps">
+            <h4>📋 Passo a passo</h4>
+            <div class="step"><div class="step-num red">1</div><span>Seja firme na regra: sem a amostra física para o controle de qualidade, não conseguimos fazer o estorno nem enviar novo pedido.</span></div>
+            <div class="step"><div class="step-num red">2</div><span>Mande a mensagem de encerramento do assunto.</span></div>
+          </div>
+          <div class="msg-block">
+            <div class="msg-block-header"><span>💬 Mensagem de Encerramento (Recusa de estorno)</span><button onclick="copyMsg(this)">Copiar</button></div>
+            <div class="msg-text">Entendemos a situação, mas o recolhimento do produto é um procedimento obrigatório da nossa gestão de qualidade. 
+
+Como não temos como recolher a amostra para fazer a auditoria na nossa linha de produção e rastrear o que houve, ficamos impossibilitados, por norma da casa, de seguir com a devolução do valor via PIX ou envio de um novo pedido. Lamentamos não conseguir resolver dessa vez. 🙏</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="detail" id="detail-takeat-1">
     <div class="detail-header">
