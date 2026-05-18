@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>POP iFood — Five Points Burguer</title>
+<title>Five Points | Resolução de problemas delivery</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
     --ifood-red: #ea1d2c;
-    --ifood-red-hover: #c91825;
-    --ifood-red-light: #fdf2f2;
+    --takeat-color: #00b894;
+    --99-color: #ff9900;
     --bg-color: #f5f5f5;
     --card-bg: #ffffff;
     --text-main: #3e3e3e;
@@ -20,6 +20,7 @@
     --radius-lg: 16px;
     --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
     --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+    --active-theme: var(--ifood-red);
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -64,25 +65,59 @@
     margin: 0 4px;
   }
   
-  .brand-ifood {
-    font-size: 26px;
-    font-weight: 900;
-    color: var(--ifood-red);
-    letter-spacing: -1.5px;
+  .brand-subtitle {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-muted);
   }
 
-  .badge { 
-    font-size: 13px; 
-    background: var(--ifood-red-light); 
-    color: var(--ifood-red); 
-    padding: 6px 12px; 
-    border-radius: 20px; 
-    font-weight: 700; 
+  /* Tabs Navigation */
+  .tabs-container {
+    background: var(--card-bg);
+    padding: 0 32px;
+    display: flex;
+    gap: 32px;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 24px;
+  }
+  .tab-btn {
+    background: none;
+    border: none;
+    padding: 16px 8px;
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--text-muted);
+    cursor: pointer;
+    position: relative;
+    font-family: 'Nunito', sans-serif;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .tab-btn:hover {
+    color: #222;
+  }
+  .tab-btn.active {
+    color: var(--active-theme);
+  }
+  .tab-btn::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--active-theme);
+    border-radius: 3px 3px 0 0;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .tab-btn.active::after {
+    opacity: 1;
   }
 
   /* Search Bar */
   .search-section { 
-    padding: 32px 32px 16px; 
+    padding: 8px 32px 16px; 
     max-width: 1200px;
     margin: 0 auto;
   }
@@ -117,17 +152,34 @@
     transition: all 0.2s ease;
   }
   .search-bar input:focus { 
-    border-color: var(--ifood-red); 
-    box-shadow: 0 0 0 3px var(--ifood-red-light);
+    border-color: var(--active-theme); 
+    box-shadow: 0 0 0 3px rgba(0,0,0,0.05);
   }
-  .search-bar input::placeholder { color: #999; }
+
+  /* Supervisor Alert Banner */
+  .supervisor-alert {
+    max-width: 1136px;
+    margin: 0 auto 24px auto;
+    background: #fff3cd;
+    border-left: 6px solid #ffeeba;
+    padding: 16px 24px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    box-shadow: var(--shadow-sm);
+  }
+  .supervisor-alert .alert-icon { font-size: 28px; }
+  .supervisor-alert .alert-text {
+    font-size: 15px; font-weight: 800; color: #856404; text-transform: uppercase; letter-spacing: 0.5px; line-height: 1.4;
+  }
 
   /* Problems Grid */
   .problems-grid { 
     display: grid; 
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); 
     gap: 16px; 
-    padding: 16px 32px; 
+    padding: 0 32px 16px; 
     max-width: 1200px;
     margin: 0 auto;
   }
@@ -147,247 +199,88 @@
     box-shadow: var(--shadow-sm);
   }
   .prob-btn:hover { 
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
+    transform: translateY(-2px); box-shadow: var(--shadow-md);
   }
   .prob-btn.active { 
-    border-color: var(--ifood-red); 
-    background: var(--ifood-red-light); 
+    border-color: var(--active-theme); background: rgba(0,0,0,0.02);
   }
-  .prob-btn .prob-icon, .prob-btn .prob-icon-wrapper {
-    background: #f0f0f0;
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 28px;
-    margin-bottom: 4px;
-    transition: background 0.2s ease;
+  .prob-btn .prob-icon {
+    background: #f0f0f0; width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; margin-bottom: 4px; transition: background 0.2s ease;
   }
-  .prob-btn.active .prob-icon, .prob-btn.active .prob-icon-wrapper {
-    background: #fff;
-  }
-  .prob-title {
-    font-weight: 800;
-    font-size: 16px;
-    color: #222;
-    text-transform: uppercase;
-  }
-  
-  .prob-sub {
-    font-size: 13px; 
-    color: var(--text-muted); 
-    line-height: 1.4;
-}
-  .prob-btn .prob-sub { 
-    font-size: 13px; 
-    color: var(--text-muted); 
-    line-height: 1.4;
-  }
+  .prob-btn.active .prob-icon { background: #fff; }
+  .prob-title { font-weight: 800; font-size: 16px; color: #222; text-transform: uppercase; }
+  .prob-sub { font-size: 13px; color: var(--text-muted); line-height: 1.4; }
 
   /* Detail Section */
   .detail { 
-    display: none; 
-    margin: 24px 32px; 
-    max-width: 1136px;
-    margin-left: auto;
-    margin-right: auto;
-    background: var(--card-bg); 
-    border-radius: var(--radius-lg); 
-    box-shadow: var(--shadow-md);
-    overflow: hidden; 
+    display: none; margin: 24px 32px; max-width: 1136px; margin-left: auto; margin-right: auto; background: var(--card-bg); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); overflow: hidden; 
   }
   .detail.visible { display: block; animation: slideDown 0.3s ease; }
-  @keyframes slideDown {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+  @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
 
-  .detail-header { 
-    background: #fff; 
-    padding: 24px 32px; 
-    border-bottom: 1px solid var(--border-color);
-  }
-  .detail-header h2 { 
-    font-size: 20px; 
-    font-weight: 800; 
-    color: #222; 
-    display: flex;
-    text-transform: uppercase;
-    align-items: center;
-    gap: 12px;
-  }
-  .detail-header p { 
-    font-size: 14px; 
-    color: var(--text-muted); 
-    margin-top: 8px; 
-    font-weight: 600;
-  }
+  .detail-header { background: #fff; padding: 24px 32px; border-bottom: 1px solid var(--border-color); }
+  .detail-header h2 { font-size: 20px; font-weight: 800; color: #222; display: flex; text-transform: uppercase; align-items: center; gap: 12px; }
+  .detail-header p { font-size: 14px; color: var(--text-muted); margin-top: 8px; font-weight: 600; }
 
   .scenarios { padding: 0; }
   .scenario { border-bottom: 1px solid var(--border-color); }
   .scenario:last-child { border-bottom: none; }
   
   .scenario-toggle { 
-    width: 100%; 
-    background: #fff; 
-    border: none; 
-    padding: 20px 32px; 
-    cursor: pointer; 
-    display: flex; 
-    align-items: center; 
-    gap: 16px; 
-    color: #222; 
-    font-size: 16px; 
-    font-weight: 700; 
-    text-align: left; 
-    transition: background 0.2s;
-    text-transform: uppercase;
+    width: 100%; background: #fff; border: none; padding: 20px 32px; cursor: pointer; display: flex; align-items: center; gap: 16px; color: #222; font-size: 16px; font-weight: 700; text-align: left; transition: background 0.2s; text-transform: uppercase;
   }
   .scenario-toggle:hover { background: #fafafa; }
   
-  .s-badge { 
-    font-size: 12px; 
-    padding: 4px 10px; 
-    border-radius: 100px; 
-    font-weight: 800; 
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    display: inline-block;
-    flex-shrink: 0;
-  }
+  .s-badge { font-size: 12px; padding: 4px 10px; border-radius: 100px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; display: inline-block; flex-shrink: 0; }
   .badge-ok { background: #e6f4ea; color: #137333; }
   .badge-err { background: #fce8e6; color: #c5221f; }
   .badge-ext { background: #e8f0fe; color: #1967d2; }
   .badge-warn { background: #fef7e0; color: #b06000; }
   
-  .scenario-toggle .chevron { 
-    margin-left: auto; 
-    font-size: 18px; 
-    color: #999;
-    transition: transform 0.2s; 
-  }
-  .scenario-toggle.open .chevron { transform: rotate(180deg); color: var(--ifood-red); }
+  .scenario-toggle .chevron { margin-left: auto; font-size: 18px; color: #999; transition: transform 0.2s; }
+  .scenario-toggle.open .chevron { transform: rotate(180deg); color: var(--active-theme); }
 
   .scenario-body { display: none; padding: 0 32px 24px; background: #fafafa; }
   .scenario-body.open { display: block; border-top: 1px solid #f0f0f0; padding-top: 24px; }
 
-  /* Steps Timeline */
   .steps { margin-bottom: 24px; }
-  .steps h4 { 
-    font-size: 14px; 
-    color: #222; 
-    font-weight: 800; 
-    margin-bottom: 16px; 
-    text-transform: uppercase;
-  }
-  .step { 
-    display: flex; 
-    gap: 16px; 
-    margin-bottom: 16px; 
-    align-items: flex-start; 
-    font-size: 15px; 
-    color: #444; 
-    line-height: 1.5; 
-  }
-  .step-num { 
-    min-width: 28px; 
-    height: 28px; 
-    border-radius: 50%; 
-    background: var(--text-muted); 
-    color: #fff; 
-    font-size: 14px; 
-    font-weight: 800; 
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    flex-shrink: 0;
-  }
-  .step-num.red { background: var(--ifood-red); }
+  .steps h4 { font-size: 14px; color: #222; font-weight: 800; margin-bottom: 16px; text-transform: uppercase; }
+  .step { display: flex; gap: 16px; margin-bottom: 16px; align-items: flex-start; font-size: 15px; color: #444; line-height: 1.5; }
+  .step-num { min-width: 28px; height: 28px; border-radius: 50%; background: var(--text-muted); color: #fff; font-size: 14px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .step-num.red { background: #c5221f; }
   .step-num.blue { background: #1967d2; }
   .step-num.green { background: #137333; }
   .step-num.orange { background: #e65100; }
 
-  /* Alerts */
-  .alert-box { 
-    background: #e6f4ea; 
-    border-radius: var(--radius-sm); 
-    padding: 16px; 
-    font-size: 14px; 
-    color: #137333; 
-    margin: 16px 0; 
-    line-height: 1.5;
-    font-weight: 600;
-    display: flex;
-    gap: 10px;
-    align-items: flex-start;
-  }
+  .alert-box { background: #e6f4ea; border-radius: var(--radius-sm); padding: 16px; font-size: 14px; color: #137333; margin: 16px 0; line-height: 1.5; font-weight: 600; display: flex; gap: 10px; align-items: flex-start; }
   .alert-box.red { background: #fce8e6; color: #c5221f; }
   .alert-box.blue { background: #e8f0fe; color: #1967d2; }
   .alert-box.orange { background: #fef7e0; color: #b06000; }
+  .alert-box.purple { background: #f3e5f5; color: #6a1b9a; }
 
-  /* Message Blocks */
-  .msg-block { 
-    background: #fff; 
-    border: 1px solid var(--border-color); 
-    border-radius: var(--radius-md); 
-    margin: 16px 0; 
-    overflow: hidden; 
-    box-shadow: 0 1px 3px rgba(0,0,0,0.02);
-  }
-  .msg-block-header { 
-    padding: 12px 16px; 
-    background: #f9f9f9; 
-    border-bottom: 1px solid var(--border-color); 
-    display: flex; 
-    align-items: center; 
-    justify-content: space-between; 
-  }
-  .msg-block-header span { 
-    font-size: 12px; 
-    color: var(--text-muted); 
-    font-weight: 800; 
-    text-transform: uppercase; 
-    letter-spacing: 0.5px; 
-  }
-  .msg-block-header button { 
-    background: #fff; 
-    border: 1px solid var(--border-color); 
-    color: var(--text-main); 
-    font-size: 12px; 
-    font-weight: 700;
-    padding: 6px 12px; 
-    border-radius: 6px; 
-    cursor: pointer; 
-    transition: all 0.15s; 
-    font-family: 'Nunito', sans-serif;
-  }
-  .msg-block-header button:hover { 
-    border-color: var(--text-main); 
-  }
-  .msg-block-header button.copied { 
-    background: #e6f4ea; 
-    border-color: #137333; 
-    color: #137333; 
-  }
-  .msg-text { 
-    padding: 16px; 
-    font-size: 14px; 
-    color: #444; 
-    line-height: 1.6; 
-    white-space: pre-wrap; 
-    font-family: 'Segoe UI', Arial, sans-serif;
-  }
+  .msg-block { background: #fff; border: 1px solid var(--border-color); border-radius: var(--radius-md); margin: 16px 0; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.02); }
+  .msg-block-header { padding: 12px 16px; background: #f9f9f9; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; }
+  .msg-block-header span { font-size: 12px; color: var(--text-muted); font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; }
+  .msg-block-header button { background: #fff; border: 1px solid var(--border-color); color: var(--text-main); font-size: 12px; font-weight: 700; padding: 6px 12px; border-radius: 6px; cursor: pointer; transition: all 0.15s; font-family: 'Nunito', sans-serif; }
+  .msg-block-header button:hover { border-color: var(--text-main); }
+  .msg-block-header button.copied { background: #e6f4ea; border-color: #137333; color: #137333; }
+  .msg-text { padding: 16px; font-size: 14px; color: #444; line-height: 1.6; white-space: pre-wrap; font-family: 'Segoe UI', Arial, sans-serif; }
 
+  .platform-content { display: none; }
+  .platform-content.active { display: block; }
   .no-results { text-align: center; padding: 60px 20px; color: var(--text-muted); font-size: 16px; font-weight: 600; }
+
+  /* 99Food specific alert */
+  .alert-99food { max-width: 1136px; margin: 40px auto; background: #fff3e0; border: 2px dashed #ff9800; padding: 40px; border-radius: var(--radius-md); text-align: center; }
+  .alert-99food h2 { color: #e65100; margin-bottom: 16px; font-size: 24px; font-weight: 800; text-transform: uppercase;}
+  .alert-99food p { font-size: 16px; color: #555; line-height: 1.5; font-weight: 600; }
   
   @media (max-width: 768px) {
-    .header, .search-section, .problems-grid { padding-left: 16px; padding-right: 16px; }
+    .header, .search-section, .problems-grid, .supervisor-alert, .tabs-container { padding-left: 16px; padding-right: 16px; }
     .detail { margin: 16px; }
     .scenario-toggle { padding: 16px; flex-direction: column; align-items: flex-start; gap: 8px; }
     .scenario-toggle .chevron { position: absolute; right: 24px; }
+    .supervisor-alert { margin-left: 16px; margin-right: 16px; }
   }
 </style>
 </head>
@@ -397,580 +290,613 @@
   <div class="logos">
     <div class="brand-five">Five Points</div>
     <span class="brand-divider">|</span>
-    <div class="brand-ifood">iFood</div>
+    <div class="brand-subtitle">Resolução de Problemas Delivery</div>
   </div>
-  <div class="badge">Procedimentos Operacionais</div>
+</div>
+
+<div class="tabs-container">
+  <button class="tab-btn active" data-target="ifood" onclick="switchPlatform('ifood', '#ea1d2c')">iFood</button>
+  <button class="tab-btn" data-target="takeat" onclick="switchPlatform('takeat', '#00b894')">Takeat (Canal Próprio)</button>
+  <button class="tab-btn" data-target="99food" onclick="switchPlatform('99food', '#ff9900')">99Food</button>
 </div>
 
 <div class="search-section">
-  <h1>Como podemos ajudar hoje?</h1>
   <div class="search-bar">
     <div class="search-input-wrapper">
       <span>🔍</span>
-      <input type="text" id="searchInput" placeholder="Pesquise o problema (ex: incompleto, motoboy, atraso...)" oninput="filterProblems(this.value)" />
+      <input type="text" id="searchInput" placeholder="Pesquise o problema (ex: incompleto, carne, atraso...)" oninput="filterProblems(this.value)" />
     </div>
   </div>
 </div>
 
-<div class="problems-grid" id="problemsGrid">
+<div id="ifood-content" class="platform-content active">
 
+  <div class="supervisor-alert">
+    <div class="alert-icon">⭐</div>
+    <div class="alert-text">Sempre vejam se é cliente da casa ou primeiro pedido. Se for cliente antigo, a probabilidade de estar certo é maior; nestes casos, acionem o supervisor antes.</div>
+  </div>
 
-  <button class="prob-btn" data-id="0" data-tags="incompleto item faltando falta pedido parcial cancelamento" onclick="toggleDetail(0)">
-    <div class="prob-icon">📦</div>
-    <div class="prob-title">Pedido incompleto</div>
-    <div class="prob-sub">Cliente alega item como batata ou refri faltando</div>
-  </button>
+  <div class="problems-grid">
+    <button class="prob-btn" data-id="ifood-0" data-tags="incompleto item faltando falta pedido parcial" onclick="toggleDetail('ifood-0')">
+      <div class="prob-icon">📦</div><div class="prob-title">Pedido incompleto</div><div class="prob-sub">Cliente alega item faltando</div>
+    </button>
+    <button class="prob-btn" data-id="ifood-1" data-tags="erro producao lanche errado ingrediente" onclick="toggleDetail('ifood-1')">
+      <div class="prob-icon">🍔</div><div class="prob-title">Erro na produção</div><div class="prob-sub">Lanche feito errado</div>
+    </button>
+    <button class="prob-btn" data-id="ifood-7" data-tags="carne alta smash crua cru ponto" onclick="toggleDetail('ifood-7')">
+      <div class="prob-icon">🥩</div><div class="prob-title">Erro na carne</div><div class="prob-sub">Tipo trocado (Smash vs Alta) ou crua</div>
+    </button>
+    <button class="prob-btn" data-id="ifood-8" data-tags="refri refrigerante bebida vazou quente" onclick="toggleDetail('ifood-8')">
+      <div class="prob-icon">🥤</div><div class="prob-title">Refri vazando/quente</div><div class="prob-sub">Problema no transporte</div>
+    </button>
+    <button class="prob-btn" data-id="ifood-2" data-tags="motoboy trocou pedidos trocados entrega errada" onclick="toggleDetail('ifood-2')">
+      <div class="prob-icon">🔄</div><div class="prob-title">Pedidos trocados</div><div class="prob-sub">Entregue no endereço errado</div>
+    </button>
+    <button class="prob-btn" data-id="ifood-3" data-tags="nao recebeu nao chegou sistema marcou" onclick="toggleDetail('ifood-3')">
+      <div class="prob-icon">📍</div><div class="prob-title">Cliente não recebeu</div><div class="prob-sub">Sistema marcou entregue</div>
+    </button>
+    <button class="prob-btn" data-id="ifood-4" data-tags="atraso coleta entregador demora chuva" onclick="toggleDetail('ifood-4')">
+      <div class="prob-icon">⏰</div><div class="prob-title">Atraso na entrega</div><div class="prob-sub">Sem entregador ou chuva</div>
+    </button>
+    <button class="prob-btn" data-id="ifood-5" data-tags="complemento adicional item extra" onclick="toggleDetail('ifood-5')">
+      <div class="prob-icon">➕</div><div class="prob-title">Complementação</div><div class="prob-sub">Adicionar item</div>
+    </button>
+    <button class="prob-btn" data-id="ifood-6" data-tags="endereco troca alterar mudar endereço" onclick="toggleDetail('ifood-6')">
+      <div class="prob-icon">📌</div><div class="prob-title">Troca de endereço</div><div class="prob-sub">Alterar após confirmação</div>
+    </button>
+  </div>
 
-  <button class="prob-btn" data-id="1" data-tags="erro producao lanche errado ingrediente producao qualidade bacon queijo" onclick="toggleDetail(1)">
-    <div class="prob-icon">🍔</div>
-    <div class="prob-title">Erro na produção</div>
-    <div class="prob-sub">Lanche feito errado</div>
-  </button>
+  <div id="no-results-ifood" class="no-results" style="display:none;">Nenhum problema encontrado no iFood. Tente outro termo.</div>
 
-  <button class="prob-btn" data-id="2" data-tags="motoboy trocou pedidos trocados entrega errada endereco" onclick="toggleDetail(2)">
-    <div class="prob-icon">🔄</div>
-    <div class="prob-title">Pedidos trocados</div>
-    <div class="prob-sub">Motoboy entregou no endereço errado</div>
-  </button>
+  <div class="detail" id="detail-ifood-0">
+    <div class="detail-header">
+      <h2>📦 PEDIDO INCOMPLETO — Cliente alega item faltando</h2>
+      <p>Primeiro: verifique a câmera da embalagem ANTES de qualquer resposta. Você tem 10 minutos para responder no Acordo Após Entrega.</p>
+    </div>
+    <div class="scenarios">
+      <div class="scenario">
+        <button class="scenario-toggle" onclick="toggleScenario(this)">
+          <span class="s-badge badge-ok">✔ NÃO erramos</span> Câmera confirma que todos os itens foram embalados <span class="chevron">▼</span>
+        </button>
+        <div class="scenario-body">
+          <div class="steps">
+            <h4>📋 Passo a passo</h4>
+            <div class="step"><div class="step-num">1</div><span>Acesse o Gestor de Pedidos → localize o pedido → clique em <strong>Acordo Após Entrega</strong>.</span></div>
+            <div class="step"><div class="step-num">2</div><span>Clique em <strong>Discordar</strong> da solicitação de cancelamento.</span></div>
+            <div class="step"><div class="step-num">3</div><span>Na justificativa, informe que possui imagens de câmera comprovando o envio correto.</span></div>
+            <div class="step"><div class="step-num">4</div><span>Envie a mensagem abaixo para o cliente via chat do iFood.</span></div>
+          </div>
+          <div class="alert-box">📷 <strong>Evidência chave:</strong> nossas câmeras cobrem a área de embalagem e entrega ao motoboy. O número do pedido está visível.</div>
+          <div class="msg-block">
+            <div class="msg-block-header"><span>💬 Mensagem para o cliente</span><button onclick="copyMsg(this)">Copiar</button></div>
+            <div class="msg-text">Olá! Aqui é a equipe Five Points Burguer. 🍔
 
-  <button class="prob-btn" data-id="3" data-tags="nao recebeu nao chegou sistema marcou codigo confirmado entrega" onclick="toggleDetail(3)">
-    <div class="prob-icon">📍</div>
-    <div class="prob-title">Cliente não recebeu o pedido</div>
-    <div class="prob-sub">Não entregue, sistema marcou ou código confirmado</div>
-  </button>
+Verificamos nosso processo de embalagem e temos registro em câmera de que todos os itens do seu pedido foram embalados e entregues ao motoboy corretamente. Pelo nosso monitoramento, o pedido saiu completo. Caso o motoboy tenha entregado algo diferente, recomendamos que você entre em contato com o suporte do iFood para que eles verifiquem o que aconteceu na entrega. 🙏</div>
+          </div>
+        </div>
+      </div>
+      <div class="scenario">
+        <button class="scenario-toggle" onclick="toggleScenario(this)">
+          <span class="s-badge badge-err">✖ Erramos</span> Câmera confirma que o item faltou <span class="chevron">▼</span>
+        </button>
+        <div class="scenario-body">
+          <div class="steps">
+            <h4>📋 Passo a passo</h4>
+            <div class="step"><div class="step-num orange">1</div><span>Não tente contestar — assuma o erro imediatamente.</span></div>
+            <div class="step"><div class="step-num orange">2</div><span>No Acordo Após Entrega, use <strong>"Negociar valor de reembolso"</strong> — proponha reembolso somente do item faltante.</span></div>
+            <div class="step"><div class="step-num orange">3</div><span>Envie a mensagem abaixo no chat.</span></div>
+          </div>
+          <div class="msg-block">
+            <div class="msg-block-header"><span>💬 Mensagem para o cliente</span><button onclick="copyMsg(this)">Copiar</button></div>
+            <div class="msg-text">Olá! Equipe Five Points Burguer aqui. 🍔
 
-  <button class="prob-btn" data-id="4" data-tags="atraso coleta entregador nao atribuido parado demora chuva alta demanda" onclick="toggleDetail(4)">
-    <div class="prob-icon">⏰</div>
-    <div class="prob-title">Atraso na entrega</div>
-    <div class="prob-sub">Sem entregador, chuva ou alta demanda</div>
-  </button>
+Pedimos sinceras desculpas pelo item faltante no seu pedido — isso não deveria ter acontecido e foi um erro nosso. Já iniciamos o processo de reembolso referente ao item em questão diretamente pelo iFood. Prometemos que no próximo pedido vamos superar suas expectativas! 🙏</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <button class="prob-btn" data-id="5" data-tags="complemento adicional item extra whatsapp chat pix pagamento" onclick="toggleDetail(5)">
-    <div class="prob-icon">➕</div>
-    <div class="prob-title">Complementação de pedido</div>
-    <div class="prob-sub">Cliente quer adicionar item via chat ou WhatsApp</div>
-  </button>
+  <div class="detail" id="detail-ifood-1">
+    <div class="detail-header">
+      <h2>🍔 ERRO NA PRODUÇÃO — LANCHE FEITO INCORRETAMENTE</h2>
+      <p>Você tem 10 minutos para responder no Acordo Após Entrega.</p>
+    </div>
+    <div class="scenarios">
+      <div class="scenario">
+        <button class="scenario-toggle" onclick="toggleScenario(this)">
+          <span class="s-badge badge-warn">PEQUENO VALOR</span> Faltou ingrediente secundário (alface, tomate, picles) <span class="chevron">▼</span>
+        </button>
+        <div class="scenario-body">
+          <div class="alert-box orange">💰 <strong>Tabela de reembolso:</strong> Alface/tomate/picles = <strong>R$ 3,00</strong> | Ovo = <strong>R$ 4,00</strong></div>
+          <div class="steps">
+            <h4>📋 Passo a passo</h4>
+            <div class="step"><div class="step-num orange">1</div><span>Acesse o Acordo Após Entrega no Gestor de Pedidos.</span></div>
+            <div class="step"><div class="step-num orange">2</div><span>Use <strong>"Negociar valor de reembolso"</strong> conforme a tabela acima.</span></div>
+          </div>
+          <div class="msg-block">
+            <div class="msg-block-header"><span>💬 Mensagem para o cliente</span><button onclick="copyMsg(this)">Copiar</button></div>
+            <div class="msg-text">Olá! Aqui é a equipe Five Points Burguer. 🍔
 
-  <button class="prob-btn" data-id="6" data-tags="endereco troca alterar mudar endereço entrega confirmado" onclick="toggleDetail(6)">
-    <div class="prob-icon">📌</div>
-    <div class="prob-title">Troca de endereço</div>
-    <div class="prob-sub">Cliente quer alterar endereço após confirmação</div>
-  </button>
+Pedimos muitas desculpas pelo erro na preparação do seu pedido. Reconhecemos que o lanche não saiu como deveria. Já providenciamos o reembolso referente ao item em questão pelo iFood. Nosso compromisso é sempre entregar o melhor! 🙏</div>
+          </div>
+        </div>
+      </div>
+      <div class="scenario">
+        <button class="scenario-toggle" onclick="toggleScenario(this)">
+          <span class="s-badge badge-err">ERRO GRAVE</span> Lanche descaracterizado (faltou bacon, queijo) <span class="chevron">▼</span>
+        </button>
+        <div class="scenario-body">
+          <div class="alert-box orange">💰 <strong>Tabela de reembolso:</strong> Bacon chapa = <strong>R$ 6,00</strong> | Bacon empanado = <strong>R$ 8,00</strong> | Queijo empanado = <strong>R$ 15,00</strong></div>
+          <div class="steps">
+            <h4>📋 Passo a passo</h4>
+            <div class="step"><div class="step-num orange">1</div><span><strong>PRIMEIRO: OFEREÇA O REENVIO do lanche correto.</strong></span></div>
+            <div class="step"><div class="step-num orange">2</div><span>Se o cliente não quiser, use <strong>"Negociar valor de reembolso"</strong> para o item faltante.</span></div>
+          </div>
+          <div class="msg-block">
+            <div class="msg-block-header"><span>💬 Mensagem de reenvio</span><button onclick="copyMsg(this)">Copiar</button></div>
+            <div class="msg-text">Olá! Aqui é a equipe Five Points Burguer. 🍔
 
+Pedimos muitas desculpas — identificamos um erro na montagem do seu lanche. Para resolver isso da melhor forma, gostaríamos de enviar um novo lanche correto, sem custo. Você aceita? 🙏</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="detail" id="detail-ifood-2">
+    <div class="detail-header">
+      <h2>🔄 PEDIDOS TROCADOS PELO MOTOBOY</h2>
+      <p>Responsabilidade é da logística iFood — não assuma o cancelamento.</p>
+    </div>
+    <div class="scenarios">
+      <div class="scenario">
+        <button class="scenario-toggle" onclick="toggleScenario(this)">
+          <span class="s-badge badge-ext">↗ iFood responsável</span> Motoboy entregou no endereço errado <span class="chevron">▼</span>
+        </button>
+        <div class="scenario-body">
+          <div class="steps">
+            <div class="step"><div class="step-num blue">1</div><span>Acesse o Acordo Após Entrega e clique em <strong>Discordar</strong>. Justifique que a câmera da área de entrega registra os pacotes entregues corretamente identificados.</span></div>
+            <div class="step"><div class="step-num blue">2</div><span>Informe que a falha na entrega é responsabilidade da logística iFood.</span></div>
+          </div>
+          <div class="msg-block">
+            <div class="msg-block-header"><span>💬 Mensagem para o cliente</span><button onclick="copyMsg(this)">Copiar</button></div>
+            <div class="msg-text">Olá! Equipe Five Points Burguer aqui. 🍔
+
+Sentimos muito pelo transtorno! Confirmamos que seu pedido saiu da nossa cozinha corretamente, identificado e entregue ao motoboy. O problema ocorreu durante o processo de entrega. Como utilizamos a logística do iFood, a plataforma está sendo acionada para resolver e garantir seu ressarcimento. Eles possuem o rastreamento da entrega para analisar o ocorrido. 🙏</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="detail" id="detail-ifood-3">
+    <div class="detail-header">
+      <h2>📍 CLIENTE ALEGA QUE NÃO RECEBEU O PEDIDO</h2>
+      <p>VERIFIQUE O STATUS no sistema antes de responder.</p>
+    </div>
+    <div class="scenarios">
+      <div class="scenario">
+        <button class="scenario-toggle" onclick="toggleScenario(this)">
+          <span class="s-badge badge-warn">⏱ Em trânsito</span> Pedido ainda não consta como entregue no sistema <span class="chevron">▼</span>
+        </button>
+        <div class="scenario-body">
+          <div class="steps">
+            <div class="step"><div class="step-num">1</div><span>Verifique o rastreamento e comunique o cliente.</span></div>
+          </div>
+          <div class="msg-block">
+            <div class="msg-block-header"><span>💬 Mensagem</span><button onclick="copyMsg(this)">Copiar</button></div>
+            <div class="msg-text">Olá! Equipe Five Points Burguer aqui. 🍔
+
+Verificamos o status do seu pedido e ele ainda está a caminho. Pedimos desculpas pela demora e já estamos acompanhando a situação de perto. Assim que houver alguma atualização, te avisamos! 🙏</div>
+          </div>
+        </div>
+      </div>
+      <div class="scenario">
+        <button class="scenario-toggle" onclick="toggleScenario(this)">
+          <span class="s-badge badge-ext">↗ iFood responsável</span> Marcou "Entregue" SEM código de confirmação <span class="chevron">▼</span>
+        </button>
+        <div class="scenario-body">
+          <div class="steps">
+            <div class="step"><div class="step-num blue">1</div><span>Clique em <strong>Discordar</strong>. Na justificativa, informe que as câmeras provam a entrega ao motoboy e o erro é da logística iFood.</span></div>
+          </div>
+          <div class="msg-block">
+            <div class="msg-block-header"><span>💬 Mensagem para o cliente</span><button onclick="copyMsg(this)">Copiar</button></div>
+            <div class="msg-text">Olá! Aqui é a equipe Five Points Burguer. 🍔
+
+Sentimos muito por essa situação. Do nosso lado, seu pedido foi preparado e entregue ao motoboy iFood corretamente. O sistema marcou como entregue, mas pode ter ocorrido uma falha na entrega final. Por favor, entre em contato com o suporte do iFood na aba Ajuda — eles têm acesso ao rastreamento do motoboy para resolver e garantir o ressarcimento! 🙏</div>
+          </div>
+        </div>
+      </div>
+      <div class="scenario">
+        <button class="scenario-toggle" onclick="toggleScenario(this)">
+          <span class="s-badge badge-ok">🔐 Código confirmado</span> Pedido consta como entregue COM código <span class="chevron">▼</span>
+        </button>
+        <div class="scenario-body">
+          <div class="steps">
+            <div class="step"><div class="step-num red">1</div><span>NÃO aceite cancelamento. Acesse o Acordo Após Entrega e DISCORDE citando que o código registrado é de responsabilidade do cliente.</span></div>
+          </div>
+          <div class="msg-block">
+            <div class="msg-block-header"><span>💬 Mensagem</span><button onclick="copyMsg(this)">Copiar</button></div>
+            <div class="msg-text">Olá! Equipe Five Points Burguer aqui. 🍔
+
+De acordo com o sistema do iFood, o pedido foi entregue e confirmado por meio do código de recebimento exclusivo. Recomendamos que verifique se alguém em sua residência recebeu o pedido em seu nome. Caso persista a dúvida, sugerimos abrir a contestação diretamente pelo aplicativo, para que o iFood possa acompanhar. 🙏</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="detail" id="detail-ifood-4">
+    <div class="detail-header">
+      <h2>⏰ ATRASO NA ENTREGA</h2>
+      <p>COMUNIQUE antes que o cliente reclame.</p>
+    </div>
+    <div class="scenarios">
+      <div class="scenario">
+        <button class="scenario-toggle" onclick="toggleScenario(this)">
+          <span class="s-badge badge-warn">⏱ Sem motoboy</span> Entregador não atribuído ou parado <span class="chevron">▼</span>
+        </button>
+        <div class="scenario-body">
+          <div class="steps">
+            <div class="step"><div class="step-num">1</div><span>Clique em "Avisar Pedido Pronto". Acione o suporte iFood se o motoboy demorar.</span></div>
+          </div>
+          <div class="msg-block">
+            <div class="msg-block-header"><span>💬 Mensagem</span><button onclick="copyMsg(this)">Copiar</button></div>
+            <div class="msg-text">Olá! Equipe Five Points Burguer aqui. 🍔
+
+Seu pedido está pronto aguardando o motoboy para a coleta! Estamos acompanhando de perto e já acionamos o iFood para agilizar a atribuição do entregador. Infelizmente esse tipo de atraso na logística está fora do nosso controle. 🙏</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="detail" id="detail-ifood-5">
+    <div class="detail-header">
+      <h2>➕ COMPLEMENTAÇÃO DE PEDIDO</h2>
+      <p>Nunca adicione itens sem pagamento prévio confirmado.</p>
+    </div>
+    <div class="scenarios">
+      <div class="scenario">
+        <button class="scenario-toggle" onclick="toggleScenario(this)">
+          <span class="s-badge badge-ok">📱 Via WhatsApp</span> Cliente pede complemento pelo Whats <span class="chevron">▼</span>
+        </button>
+        <div class="scenario-body">
+          <div class="steps">
+            <div class="step"><div class="step-num">1</div><span>Anote o pedido e cobre via PIX (Chave CNPJ: 45.085.563/0001-68). Lance no PDV e aguarde o comprovante antes de produzir.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="detail" id="detail-ifood-6">
+    <div class="detail-header">
+      <h2>📌 TROCA DE ENDEREÇO DE ENTREGA</h2>
+      <p>NÃO é possível alterar o endereço após a confirmação.</p>
+    </div>
+    <div class="scenarios">
+      <div class="scenario">
+        <button class="scenario-toggle" onclick="toggleScenario(this)">
+          <span class="s-badge badge-err">✖ Não permitido</span> Solicitação após o pedido feito <span class="chevron">▼</span>
+        </button>
+        <div class="scenario-body">
+          <div class="steps">
+            <div class="step"><div class="step-num">1</div><span>Informe que por segurança, não mudamos o endereço. Oriente a cancelar e refazer.</span></div>
+          </div>
+          <div class="msg-block">
+            <div class="msg-block-header"><span>💬 Mensagem</span><button onclick="copyMsg(this)">Copiar</button></div>
+            <div class="msg-text">Olá! Equipe Five Points Burguer aqui. 🍔
+
+Por políticas do iFood e para garantir a sua segurança, não conseguimos alterar o endereço de entrega após a confirmação do pedido. Sugerimos que acesse a Ajuda do app ou cancele o pedido atual e o refaça com o endereço correto. 🙏</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="detail" id="detail-ifood-7">
+    <div class="detail-header">
+      <h2>🥩 ERRO NA CARNE — TIPO INCORRETO OU RECLAMAÇÃO DE CRUA</h2>
+      <p>Verifique sempre a comanda primeiro. Você tem 10 minutos para responder no Acordo Após Entrega.</p>
+    </div>
+    <div class="scenarios">
+      <div class="scenario">
+        <button class="scenario-toggle" onclick="toggleScenario(this)">
+          <span class="s-badge badge-err">✖ Erro no tipo</span> Cliente alega que pediu smash mas veio alta (ou vice-versa) <span class="chevron">▼</span>
+        </button>
+        <div class="scenario-body">
+          <div class="steps">
+            <h4>📋 Passo a passo</h4>
+            <div class="step"><div class="step-num orange">1</div><span>Verifique a comanda. Se o erro for nosso (lançamos/produzimos errado), assuma imediatamente.</span></div>
+            <div class="step"><div class="step-num orange">2</div><span><strong>PRIMEIRO: OFEREÇA A TROCA do lanche.</strong></span></div>
+            <div class="step"><div class="step-num orange">3</div><span>Se recusar: use <strong>"Negociar valor de reembolso"</strong> e proponha o valor apenas do lanche errado.</span></div>
+          </div>
+          <div class="msg-block">
+            <div class="msg-block-header"><span>💬 Mensagem — Proposta de reenvio</span><button onclick="copyMsg(this)">Copiar</button></div>
+            <div class="msg-text">Olá! Aqui é a equipe Five Points Burguer. 🍔
+
+Pedimos muitas desculpas! Verificamos aqui e realmente houve uma confusão na nossa cozinha e enviamos o tipo de carne incorreto no seu pedido. Para resolver isso da melhor forma, gostaríamos de preparar e enviar um novo lanche perfeito para você agora mesmo, sem nenhum custo adicional. Você aceita o reenvio? 🙏</div>
+          </div>
+        </div>
+      </div>
+      <div class="scenario">
+        <button class="scenario-toggle" onclick="toggleScenario(this)">
+          <span class="s-badge badge-warn">? Ponto da carne</span> Cliente alega que a carne está crua <span class="chevron">▼</span>
+        </button>
+        <div class="scenario-body">
+          <div class="steps">
+            <h4>📋 Passo a passo</h4>
+            <div class="step"><div class="step-num">1</div><span>Nossa política: <strong>Não acatamos observações sobre o ponto da carne</strong>. O cliente deve escolher no cardápio entre a carne ao "ponto da casa" ou optar pelo "smash".</span></div>
+            <div class="step"><div class="step-num">2</div><span>Peça uma foto para avaliar.</span></div>
+            <div class="step"><div class="step-num orange">3</div><span><strong>SE ESTIVER REALMENTE CRUA:</strong> Assuma o erro e ofereça o reenvio imediatamente. Se o cliente não quiser o envio, use "Negociar valor de reembolso" e devolva SOMENTE o valor do burger.</span></div>
+            <div class="step"><div class="step-num blue">4</div><span><strong>SE FOR O PONTO DA CASA E HAVIA OBSERVAÇÃO IGNORADA:</strong> Clique em Discordar no Acordo Após Entrega e explique a regra da casa.</span></div>
+          </div>
+          <div class="msg-block">
+            <div class="msg-block-header"><span>💬 Mensagem — Explicando a regra</span><button onclick="copyMsg(this)">Copiar</button></div>
+            <div class="msg-text">Olá! Avaliamos a sua foto e identificamos que o seu hambúrguer está no nosso "Ponto da Casa" (rosado e suculento). Nós não realizamos alterações no ponto da carne alta através de observações. Para clientes que preferem bem passada e fininha, oferecemos o hambúrguer "Smash". Lamentamos que não tenha sido do seu gosto desta vez! 🙏</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="detail" id="detail-ifood-8">
+    <div class="detail-header">
+      <h2>🥤 REFRI VAZANDO OU QUENTE</h2>
+    </div>
+    <div class="scenarios">
+      <div class="scenario">
+        <button class="scenario-toggle" onclick="toggleScenario(this)">
+          <span class="s-badge badge-ext">↗ iFood responsável</span> Bebida com problemas devido ao transporte <span class="chevron">▼</span>
+        </button>
+        <div class="scenario-body">
+          <div class="steps">
+            <div class="step"><div class="step-num blue">1</div><span>Clique em <strong>Discordar</strong> do cancelamento do pedido. Informe que as bebidas saíram da loja geladas e lacradas.</span></div>
+          </div>
+          <div class="msg-block">
+            <div class="msg-block-header"><span>💬 Mensagem para o cliente</span><button onclick="copyMsg(this)">Copiar</button></div>
+            <div class="msg-text">Olá! Equipe Five Points Burguer aqui. Poxa, sentimos muito que sua bebida tenha chegado assim! Nossos refris saem daqui trincando de gelados e embalados com cuidado. Por favor, acione o suporte do iFood na aba de "Ajuda" do seu pedido, explique o ocorrido e solicite o reembolso específico da sua bebida. Esse caso é de responsabilidade da logística do Ifood, então somente eles podem te devolver o valor. 🙏</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </div>
 
-<div id="no-results" class="no-results" style="display:none;">Nenhum problema encontrado. Tente outro termo.</div>
 
-<!-- DETAIL 0: PEDIDO INCOMPLETO -->
-<div class="detail" id="detail-0">
-  <div class="detail-header">
-    <h2>📦 PEDIDO INCOMPLETO — Cliente alega item como batata ou refri faltando</h2>
-    <p>Primeiro: verifique a câmera da embalagem ANTES de qualquer resposta. Você tem 10 minutos para responder no Acordo Após Entrega.</p>
+<div id="takeat-content" class="platform-content">
+
+  <div class="problems-grid">
+    <button class="prob-btn" data-id="takeat-1" data-tags="falta item incompleto erro producao carne montagem" onclick="toggleDetail('takeat-1')">
+      <div class="prob-icon" style="color: var(--takeat-color);">📦</div><div class="prob-title">Faltou Item / Erro Produção</div><div class="prob-sub">Agilidade na troca via WhatsApp</div>
+    </button>
+    <button class="prob-btn" data-id="takeat-2" data-tags="atraso demora logística ifood parceira terceirizada" onclick="toggleDetail('takeat-2')">
+      <div class="prob-icon" style="color: var(--takeat-color);">⏰</div><div class="prob-title">Atraso na Entrega</div><div class="prob-sub">Logística terceirizada iFood</div>
+    </button>
+    <button class="prob-btn" data-id="takeat-3" data-tags="endereco troca mudar taxa cancelamento pix" onclick="toggleDetail('takeat-3')">
+      <div class="prob-icon" style="color: var(--takeat-color);">📌</div><div class="prob-title">Troca de Endereço</div><div class="prob-sub">Cobrança de nova taxa via PIX</div>
+    </button>
+    <button class="prob-btn" data-id="takeat-4" data-tags="nao atende chamou nao respondeu voltou loja" onclick="toggleDetail('takeat-4')">
+      <div class="prob-icon" style="color: var(--takeat-color);">📵</div><div class="prob-title">Cliente não atende motoboy</div><div class="prob-sub">Retorno logístico automático</div>
+    </button>
+    <button class="prob-btn" data-id="takeat-5" data-tags="nao encontrou endereco erro digitado falha localizacao" onclick="toggleDetail('takeat-5')">
+      <div class="prob-icon" style="color: var(--takeat-color);">🗺️</div><div class="prob-title">Motoboy não encontra endereço</div><div class="prob-sub">Erro no preenchimento ou falha no app</div>
+    </button>
   </div>
-  <div class="scenarios">
 
-    <div class="scenario">
-      <button class="scenario-toggle" onclick="toggleScenario(this)">
-        <span class="s-badge badge-ok">✔ NÃO erramos</span>
-        Câmera confirma que todos os itens foram embalados
-        <span class="chevron">▼</span>
-      </button>
-      <div class="scenario-body">
-        <div class="steps">
-          <h4>📋 Passo a passo</h4>
-          <div class="step"><div class="step-num">1</div><span>Acesse o Gestor de Pedidos → localize o pedido → clique em <strong>Acordo Após Entrega</strong>.</span></div>
-          <div class="step"><div class="step-num">2</div><span>Clique em <strong>Discordar</strong> da solicitação de cancelamento.</span></div>
-          <div class="step"><div class="step-num">3</div><span>No campo de justificativa, informe que possui imagens de câmera comprovando o envio correto de todos os itens. Seja claro e objetivo.</span></div>
-          <div class="step"><div class="step-num">4</div><span>Envie a mensagem abaixo para o cliente via chat do iFood para humanizar o contato.</span></div>
-          <div class="step"><div class="step-num green">5</div><span>Se o iFood abrir arbitragem, informe novamente sobre a câmera e peça análise das imagens.</span></div>
-        </div>
-        <div class="alert-box">📷 <strong>Evidência chave:</strong> nossas câmeras cobrem a área de embalagem e entrega ao motoboy. O número do pedido está visível no saco. Isso é aceito como prova no processo de arbitragem do iFood.</div>
-        <div class="msg-block">
-          <div class="msg-block-header"><span>💬 Mensagem para o cliente (chat iFood)</span><button onclick="copyMsg(this)">Copiar</button></div>
-          <div class="msg-text">Olá! Aqui é a equipe Five Points Burguer. 🍔
+  <div id="no-results-takeat" class="no-results" style="display:none;">Nenhum problema encontrado no Takeat. Tente outro termo.</div>
 
-Ficamos tristes em saber que algo não saiu como esperado, e levamos toda reclamação muito a sério!
+  <div class="detail" id="detail-takeat-1">
+    <div class="detail-header">
+      <h2>📦 FALTOU ITEM OU ERRO NA PRODUÇÃO (Carne, Montagem)</h2>
+      <p>O cliente é nosso. Foco total em agilidade e retenção sem burocracia de plataforma.</p>
+    </div>
+    <div class="scenarios">
+      <div class="scenario">
+        <button class="scenario-toggle" onclick="toggleScenario(this)">
+          <span class="s-badge" style="background:#e8f5e9; color:#2e7d32;">Ação Rápida</span>
+          Resolução Imediata no WhatsApp
+          <span class="chevron">▼</span>
+        </button>
+        <div class="scenario-body">
+          <div class="steps">
+            <h4>📋 Passo a passo</h4>
+            <div class="step"><div class="step-num green">1</div><span>Pelo WhatsApp, peça desculpas pelo erro imediatamente.</span></div>
+            <div class="step"><div class="step-num green">2</div><span><strong>Ofereça o reenvio do item correto agora mesmo</strong> por um novo motoboy.</span></div>
+            <div class="step"><div class="step-num orange">3</div><span><strong>Se o cliente recusar o reenvio:</strong> Solicite a Chave PIX dele no chat.</span></div>
+            <div class="step"><div class="step-num orange">4</div><span>Envie os dados para o financeiro solicitando o estorno <strong>imediatamente</strong> do item.</span></div>
+            <div class="step"><div class="step-num orange">5</div><span>Envie o comprovante do PIX no WhatsApp do cliente para encerrar o atendimento com transparência.</span></div>
+          </div>
+          <div class="msg-block">
+            <div class="msg-block-header"><span>💬 Mensagem 1 — Oferecer Reenvio Imediato</span><button onclick="copyMsg(this)">Copiar</button></div>
+            <div class="msg-text">Olá! Aqui é a equipe Five Points Burguer. 🍔
 
-Verificamos nosso processo de embalagem e temos registro em câmera de que todos os itens do seu pedido foram embalados e entregues ao motoboy corretamente.
+Pedimos muitas desculpas pelo erro na sua entrega. Para resolvermos isso o mais rápido possível, gostaríamos de enviar o item correto imediatamente com um novo motoboy, sem nenhum custo para você. 
 
-Pelo nosso monitoramento, o pedido saiu completo da nossa cozinha. Caso o motoboy tenha entregado algo diferente, recomendamos que você entre em contato com o suporte do iFood para que eles possam verificar o que aconteceu na entrega.
+Podemos mandar preparar e enviar agora? 🙏</div>
+          </div>
+          <div class="msg-block">
+            <div class="msg-block-header"><span>💬 Mensagem 2 — Estorno via PIX (Se o cliente recusar o reenvio)</span><button onclick="copyMsg(this)">Copiar</button></div>
+            <div class="msg-text">Compreendemos perfeitamente a sua decisão. 
 
-Esperamos que possamos resolver isso da melhor forma e que você dê outra chance pra gente! 🙏</div>
-        </div>
-        <div class="msg-block">
-          <div class="msg-block-header"><span>📝 Justificativa para o iFood (Acordo Após Entrega)</span><button onclick="copyMsg(this)">Copiar</button></div>
-          <div class="msg-text">Discordamos desta solicitação. Nosso estabelecimento possui câmeras de segurança que cobrem a área de embalagem dos pedidos e a entrega ao motoboy do iFood. O número do pedido é anotado no saco para identificação visual. As imagens mostram que todos os itens solicitados foram corretamente embalados e entregues ao entregador. A responsabilidade da entrega é da logística iFood a partir do momento de coleta. Solicitamos análise das imagens caso necessário.</div>
+Nesse caso, faremos o estorno imediato do valor do item que faltou/foi incorreto. Por favor, nos envie a sua Chave PIX e o nome completo para realizarmos a transferência. 
+
+Assim que o financeiro concluir, te envio o comprovante por aqui. Pedimos desculpas novamente pelo transtorno! 🙏</div>
+          </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <div class="scenario">
-      <button class="scenario-toggle" onclick="toggleScenario(this)">
-        <span class="s-badge badge-err">✖ Erramos</span>
-        Câmera ou conferência confirmam que o item faltou
-        <span class="chevron">▼</span>
-      </button>
-      <div class="scenario-body">
-        <div class="steps">
-          <h4>📋 Passo a passo</h4>
-          <div class="step"><div class="step-num orange">1</div><span>Não tente contestar — assuma o erro imediatamente.</span></div>
-          <div class="step"><div class="step-num orange">2</div><span>No Acordo Após Entrega, use <strong>"Negociar valor de reembolso"</strong> — proponha reembolso somente do item que faltou, não do pedido inteiro.</span></div>
-          <div class="step"><div class="step-num orange">3</div><span>Envie a mensagem abaixo no chat com tom de genuína correção.</span></div>
-          <div class="step"><div class="step-num orange">4</div><span>Registre internamente o erro para evitar recorrência (informe o supervisor).</span></div>
-        </div>
-        <div class="alert-box red">⚠️ <strong>NÃO ACEITE O CANCELAMENTO TOTAL</strong> se o erro foi só em 1 item. NEGOCIE SEMPRE o reembolso parcial apenas do item que faltou.</div>
-        <div class="msg-block">
-          <div class="msg-block-header"><span>💬 Mensagem para o cliente (chat iFood)</span><button onclick="copyMsg(this)">Copiar</button></div>
-          <div class="msg-text">Olá! Equipe Five Points Burguer aqui. 🍔
+  <div class="detail" id="detail-takeat-2">
+    <div class="detail-header">
+      <h2>⏰ ATRASO NA ENTREGA (Logística Terceirizada iFood)</h2>
+    </div>
+    <div class="scenarios">
+      <div class="scenario">
+        <button class="scenario-toggle" onclick="toggleScenario(this)">
+          <span class="s-badge badge-warn">Acompanhamento</span>
+          Atraso utilizando motoboy parceiro
+          <span class="chevron">▼</span>
+        </button>
+        <div class="scenario-body">
+          <div class="steps">
+            <h4>📋 Passo a passo</h4>
+            <div class="step"><div class="step-num">1</div><span>Verifique o status do motoboy no portal/painel da logística terceirizada (iFood Entrega).</span></div>
+            <div class="step"><div class="step-num">2</div><span>Seja proativo: envie uma mensagem para o cliente no WhatsApp <strong>antes</strong> que ele reclame da demora, explicando que o pedido já está com o parceiro logístico.</span></div>
+          </div>
+          <div class="msg-block">
+            <div class="msg-block-header"><span>💬 Mensagem de Acompanhamento</span><button onclick="copyMsg(this)">Copiar</button></div>
+            <div class="msg-text">Olá! Equipe Five Points Burguer aqui. 🍔
 
-Pedimos sinceras desculpas pelo item faltante no seu pedido — isso não deveria ter acontecido e foi um erro nosso.
+Verificamos que o motoboy parceiro da nossa logística terceirizada já coletou seu pedido e está a caminho do seu endereço. Pode ter ocorrido um pequeno imprevisto na rota, mas estamos acompanhando o trajeto dele em tempo real para garantir que seu pedido chegue quentinho. 
 
-Já iniciamos o processo de reembolso referente ao item em questão diretamente pelo iFood.
-
-Prometemos que no próximo pedido vamos superar suas expectativas. Conte com a gente! 🙏</div>
+Agradecemos demais a sua paciência! 🙏</div>
+          </div>
         </div>
       </div>
     </div>
-
   </div>
+
+  <div class="detail" id="detail-takeat-3">
+    <div class="detail-header">
+      <h2>📌 TROCA DE ENDEREÇO APÓS O PEDIDO FEITO</h2>
+      <p>Diferente do app, no Takeat nós temos flexibilidade de rota, mas há custos envolvidos.</p>
+    </div>
+    <div class="scenarios">
+      <div class="scenario">
+        <button class="scenario-toggle" onclick="toggleScenario(this)">
+          <span class="s-badge badge-err">Cobrança Exigida</span>
+          Endereço novo repassado após acionamento do motoboy
+          <span class="chevron">▼</span>
+        </button>
+        <div class="scenario-body">
+          <div class="alert-box purple">💳 <strong>CHAVE PIX DA LOJA:</strong> CNPJ 45.085.563/0001-68 (Geada Fria Alimentos Ltda)</div>
+          <div class="steps">
+            <h4>📋 Passo a passo</h4>
+            <div class="step"><div class="step-num">1</div><span>Verifique se o motoboy já foi chamado. Se sim, <strong>verifique no mapa se o novo endereço está dentro do raio de entrega</strong>.</span></div>
+            <div class="step"><div class="step-num">2</div><span><strong>Se estiver NO RAIO:</strong> Calcule a nova taxa. Informe ao cliente que há cobrança extra por cancelamento e realocação da parceira logística. O motoboy só sai após o comprovante de PIX.</span></div>
+            <div class="step"><div class="step-num red">3</div><span><strong>Se estiver FORA DO RAIO:</strong> O pedido precisa ser cancelado e o valor estornado.</span></div>
+          </div>
+          <div class="msg-block">
+            <div class="msg-block-header"><span>💬 Mensagem 1 — Endereço DENTRO do Raio (Cobrança Nova Taxa)</span><button onclick="copyMsg(this)">Copiar</button></div>
+            <div class="msg-text">Olá! Como o pedido já estava em andamento e o motoboy já havia sido acionado, para fazer a troca do endereço de entrega há a cobrança de uma nova taxa. 
+
+Isso ocorre porque há um custo gerado pelo cancelamento da rota anterior e realocação de um novo motoboy cobrado pelo nosso parceiro logístico. O valor da nova taxa para o endereço solicitado é de R$ [VALOR DA TAXA].
+
+Você pode realizar o pagamento para a nossa chave PIX CNPJ (45.085.563/0001-68) e nos enviar o comprovante por aqui? Assim que recebermos, já liberamos a saída do seu pedido para o novo local! 🙏</div>
+          </div>
+          <div class="msg-block">
+            <div class="msg-block-header"><span>💬 Mensagem 2 — Endereço FORA do Raio (Cancelamento)</span><button onclick="copyMsg(this)">Copiar</button></div>
+            <div class="msg-text">Olá! Verificamos o novo endereço que você enviou, mas infelizmente ele fica fora do nosso raio de cobertura de entregas atual. 
+
+Nesse caso, não conseguiremos enviar o motoboy até aí, e precisaremos cancelar o seu pedido. Por favor, nos envie sua chave PIX para fazermos o estorno integral do valor pago. Lamentamos não conseguir te atender nesse local hoje! 🙏</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="detail" id="detail-takeat-4">
+    <div class="detail-header">
+      <h2>📵 CLIENTE NÃO ATENDE O MOTOBOY</h2>
+    </div>
+    <div class="scenarios">
+      <div class="scenario">
+        <button class="scenario-toggle" onclick="toggleScenario(this)">
+          <span class="s-badge badge-err">Motoboy Retornou</span>
+          Sem sucesso no contato, pedido volta para a base
+          <span class="chevron">▼</span>
+        </button>
+        <div class="scenario-body">
+          <div class="steps">
+            <h4>📋 Passo a passo</h4>
+            <div class="step"><div class="step-num">1</div><span><strong>A logística é terceirizada pelo iFood.</strong> Por padrão, se ninguém atender no local após o tempo limite do app, o entregador cancela a rota e retorna automaticamente com o pedido para a loja (não temos como entrar em contato direto com ele). O caixa deve tentar ligar e mandar WhatsApp para o cliente enquanto isso.</span></div>
+            <div class="step"><div class="step-num">2</div><span>Como o pedido no Takeat já está pago, assim que ele retornar, guarde na loja (na estufa).</span></div>
+            <div class="step"><div class="step-num">3</div><span>Deixe a mensagem registrada no WhatsApp do cliente explicando a situação.</span></div>
+          </div>
+          <div class="msg-block">
+            <div class="msg-block-header"><span>💬 Mensagem — Retorno do Pedido</span><button onclick="copyMsg(this)">Copiar</button></div>
+            <div class="msg-text">Olá! Nosso entregador parceiro esteve no seu endereço, mas infelizmente não teve sucesso no contato. 
+
+Como utilizamos a logística terceirizada do iFood, se o tempo de espera no local se esgota, o sistema os faz retornar automaticamente com o pedido para a nossa base. Como o pagamento do seu pedido já foi realizado, ele está guardado aqui na loja. Quando visualizar essa mensagem, nos avise: você prefere vir retirar na loja ou quer que a gente solicite um novo motoboy? 
+
+(Lembrando que, caso opte por um novo envio, haverá a cobrança de uma nova taxa de entrega gerada pela parceira logística). Aguardamos seu retorno! 🙏</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="detail" id="detail-takeat-5">
+    <div class="detail-header">
+      <h2>🗺️ MOTOBOY NÃO ENCONTRA O ENDEREÇO</h2>
+    </div>
+    <div class="scenarios">
+      <div class="scenario">
+        <button class="scenario-toggle" onclick="toggleScenario(this)">
+          <span class="s-badge badge-warn">Verificar Erro</span>
+          Motoboy retorna, precisamos validar com o cliente quem errou
+          <span class="chevron">▼</span>
+        </button>
+        <div class="scenario-body">
+          <div class="steps">
+            <h4>📋 Passo a passo</h4>
+            <div class="step"><div class="step-num">1</div><span>Motoboy voltou. Entre em contato com o cliente via WhatsApp pedindo para confirmar o endereço de entrega por escrito.</span></div>
+            <div class="step"><div class="step-num green">2</div><span><strong>SE O ENDEREÇO ESTAVA CERTO NO PEDIDO (Falha do app):</strong> Solicite um novo motoboy digitando os dados manualmente. Reaqueça os burgers na caixa (30s no micro), faça novas batatas e troque o refri por gelados. Custo do reenvio é nosso.</span></div>
+            <div class="step"><div class="step-num red">3</div><span><strong>SE O CLIENTE DIGITOU O ENDEREÇO ERRADO/INCOMPLETO:</strong> Avise que há cobrança de uma nova taxa (PIX 45.085.563/0001-68) para cobrir os custos logísticos do reenvio.</span></div>
+          </div>
+          <div class="msg-block">
+            <div class="msg-block-header"><span>💬 Mensagem A — Falha do App (Endereço estava certo)</span><button onclick="copyMsg(this)">Copiar</button></div>
+            <div class="msg-text">Olá! Nosso entregador teve um problema técnico de localização no aplicativo e não conseguiu achar o seu endereço, precisando retornar para a loja.
+
+Verificamos que os dados que você preencheu estavam certinhos! Já estamos acionando um novo motoboy por nossa conta (digitando o endereço manualmente para não ter erro), preparando uma porção de batatas fresquinhas e enviando seu pedido agora mesmo. Pedimos desculpas pelo atraso! 🙏</div>
+          </div>
+          <div class="msg-block">
+            <div class="msg-block-header"><span>💬 Mensagem B — Cliente digitou errado (Cobrança Nova Taxa)</span><button onclick="copyMsg(this)">Copiar</button></div>
+            <div class="msg-text">Olá! Nosso entregador parceiro tentou realizar a entrega, mas não conseguiu localizar o local e retornou à base. Verificamos no sistema que o endereço digitado no ato do pedido estava com informações incorretas/incompletas.
+
+Para reenviarmos agora para o endereço certinho, há a cobrança de uma nova taxa de entrega cobrada pelo parceiro logístico. Você pode fazer o PIX no valor de R$ [VALOR] para nossa chave (CNPJ: 45.085.563/0001-68) e nos enviar o comprovante por aqui? Assim já liberamos a saída do novo motoboy! 🙏</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
 
-<!-- DETAIL 1: ERRO NA PRODUÇÃO -->
-<div class="detail" id="detail-1">
-  <div class="detail-header">
-    <h2>🍔 ERRO NA PRODUÇÃO — LANCHE FEITO INCORRETAMENTE</h2>
-    <p>Ingrediente errado, montagem incorreta, item diferente do pedido. Você tem 10 minutos para responder no Acordo Após Entrega.</p>
-  </div>
-  <div class="scenarios">
-
-    <!-- ERRO A: PEQUENO VALOR -->
-    <div class="scenario">
-      <button class="scenario-toggle" onclick="toggleScenario(this)">
-        <span class="s-badge" style="background-color: #ff9800; color: white; font-size: 14px; padding: 6px 12px;">ERRO DE PEQUENO VALOR</span> <span style="font-size: 14px; text-transform: uppercase;">— FALTOU INGREDIENTE SECUNDÁRIO (ALFACE, TOMATE, CEBOLA, PICLES, OVO)</span> <span class="chevron">▼</span>
-      </button>
-      <div class="scenario-body">
-        <div class="alert-box orange">💰 <strong>Tabela de reembolso:</strong> Alface, tomate, cebola picada ou picles = <strong>R$ 3,00</strong> &nbsp;|&nbsp; Ovo = <strong>R$ 4,00</strong></div>
-        <div class="steps">
-          <h4>📋 Passo a passo</h4>
-          <div class="step"><div class="step-num orange">1</div><span>Acesse o Acordo Após Entrega no Gestor de Pedidos.</span></div>
-          <div class="step"><div class="step-num orange">2</div><span>Use <strong>"Negociar valor de reembolso"</strong> — proponha o valor conforme a tabela acima.</span></div>
-          <div class="step"><div class="step-num orange">3</div><span>Envie a mensagem abaixo via chat do iFood.</span></div>
-          <div class="step"><div class="step-num orange">4</div><span>Registre internamente: qual foi o erro, em qual praça e por quem foi produzido.</span></div>
-        </div>
-        <div class="alert-box orange">🔔 <strong>Alerta para outras praças:</strong> erros de produção frequentes podem indicar problema no check-list de início de operação (conferência de insumos) ou na comanda. Reforce a conferência item a item com iniciais do conferente.</div>
-        <div class="alert-box red">⚠️ <strong>NÃO ACEITE CANCELAMENTO TOTAL</strong> por item secundário. NEGOCIE SEMPRE o reembolso parcial conforme tabela.</div>
-        <div class="msg-block">
-          <div class="msg-block-header"><span>💬 Mensagem para o cliente (chat iFood)</span><button onclick="copyMsg(this)">Copiar</button></div>
-          <div class="msg-text">Olá! Aqui é a equipe Five Points Burguer. 🍔
-
-Pedimos muitas desculpas pelo erro na preparação do seu pedido. Reconhecemos que o lanche não saiu como deveria e isso está abaixo do nosso padrão.
-
-Já providenciamos o reembolso referente ao item em questão pelo iFood.
-
-Nosso compromisso é sempre entregar o melhor — e queremos muito que você nos dê uma nova chance para provar isso. Obrigado pela compreensão! 🙏</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ERRO B: DESCARACTERIZA O LANCHE -->
-    <div class="scenario">
-      <button class="scenario-toggle" onclick="toggleScenario(this)">
-        <span class="s-badge" style="background-color: var(--ifood-red); color: white; font-size: 14px; padding: 6px 12px;">ERRO GRAVE</span> <span style="font-size: 14px; text-transform: uppercase;">— LANCHE DESCARACTERIZADO (FALTOU BACON, GELEIA DE BACON, QUEIJO OU QUEIJO EMPANADO)</span> <span class="chevron">▼</span>
-      </button>
-      <div class="scenario-body">
-        <div class="alert-box orange">💰 <strong>Tabela de reembolso (se cliente recusar reenvio):</strong> Bacon chapa = <strong>R$ 6,00</strong> &nbsp;|&nbsp; Bacon empanado = <strong>R$ 8,00</strong> &nbsp;|&nbsp; Queijo empanado = <strong>R$ 15,00</strong></div>
-        <div class="steps">
-          <h4>📋 Passo a passo</h4>
-          <div class="step"><div class="step-num orange">1</div><span>Acesse o Acordo Após Entrega no Gestor de Pedidos.</span></div>
-          <div class="step"><div class="step-num orange">2</div><span><strong>PRIMEIRO: OFEREÇA O REENVIO do lanche correto.</strong> Envie a mensagem de reenvio abaixo.</span></div>
-          <div class="step"><div class="step-num orange">3</div><span>Se o cliente <strong>NÃO quiser o novo lanche</strong>: use <strong>"Negociar valor de reembolso"</strong> e proponha o valor do item faltante conforme a tabela acima.</span></div>
-          <div class="step"><div class="step-num orange">4</div><span>Se o cliente <strong>NÃO aceitar o reembolso parcial</strong>: o iFood deverá aceitar o cancelamento, pois o erro foi nosso e o lanche foi descaracterizado.</span></div>
-          <div class="step"><div class="step-num orange">5</div><span>Registre internamente: qual foi o erro, em qual praça e por quem foi produzido.</span></div>
-        </div>
-        <div class="alert-box red">⚠️ <strong>TENTE SEMPRE O REENVIO PRIMEIRO.</strong> O reenvio preserva a experiência do cliente e evita perda total. Só aceite cancelamento se o cliente recusar reenvio E reembolso parcial.</div>
-        <div class="msg-block">
-          <div class="msg-block-header"><span>💬 Mensagem 1 — Proposta de reenvio do lanche</span><button onclick="copyMsg(this)">Copiar</button></div>
-          <div class="msg-text">Olá! Aqui é a equipe Five Points Burguer. 🍔
-
-Pedimos muitas desculpas — identificamos um erro na montagem do seu lanche e reconhecemos que ele não saiu como deveria.
-
-Para resolver isso da melhor forma, gostaríamos de preparar e enviar um novo lanche correto para você, sem nenhum custo adicional.
-
-Você aceita que a gente envie um novo lanche? É só confirmar aqui! 🙏</div>
-        </div>
-        <div class="msg-block">
-          <div class="msg-block-header"><span>💬 Mensagem 2 — Se cliente recusar reenvio (proposta de reembolso parcial)</span><button onclick="copyMsg(this)">Copiar</button></div>
-          <div class="msg-text">Olá! Equipe Five Points Burguer aqui. 🍔
-
-Entendemos sua decisão e pedimos novamente desculpas pelo transtorno.
-
-Nesse caso, vamos processar o reembolso referente ao item que estava faltando no seu lanche, conforme a tabela de valores do iFood.
-
-Esperamos poder te atender muito melhor em uma próxima oportunidade! 🙏</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="scenario">
-      <button class="scenario-toggle" onclick="toggleScenario(this)">
-        <span class="s-badge badge-warn" style="font-size: 14px; padding: 6px 12px;">? ALEGAÇÃO DUVIDOSA</span> <span style="font-size: 14px; text-transform: uppercase;">— CLIENTE ALEGA ERRO MAS CÂMERA/COMANDA INDICAM PRODUÇÃO CORRETA</span>
-        <span class="chevron">▼</span>
-      </button>
-      <div class="scenario-body">
-        <div class="steps">
-          <h4>📋 Passo a passo</h4>
-          <div class="step"><div class="step-num">1</div><span>Verifique a comanda: o pedido foi marcado e conferido item a item com as iniciais do conferente?</span></div>
-          <div class="step"><div class="step-num">2</div><span>Se a produção estava correta conforme comanda, acesse o Acordo Após Entrega e clique em <strong>Discordar</strong>.</span></div>
-          <div class="step"><div class="step-num">3</div><span>Na justificativa, informe que o pedido foi produzido conforme solicitado na comanda e conferido antes do envio.</span></div>
-          <div class="step"><div class="step-num">4</div><span>Envie a mensagem abaixo ao cliente — com tom empático mas firme.</span></div>
-        </div>
-        <div class="alert-box blue">ℹ️ A nova política do iFood permite cancelamento por erro de produção apenas em casos graves comprovados. Subjetividades (tamanho, gosto pessoal) não são mais motivo válido de cancelamento.</div>
-        <div class="msg-block">
-          <div class="msg-block-header"><span>💬 Mensagem para o cliente (chat iFood)</span><button onclick="copyMsg(this)">Copiar</button></div>
-          <div class="msg-text">Olá! Equipe Five Points Burguer aqui. 🍔
-
-Agradecemos seu contato e lamentamos que sua experiência não tenha sido como esperado.
-
-Verificamos o registro do seu pedido e a produção foi realizada exatamente conforme o que foi solicitado na comanda, com conferência feita antes do envio.
-
-Caso queira, podemos conversar mais sobre o ocorrido para entender melhor o que aconteceu. Nosso objetivo é sempre que você fique satisfeito e queremos encontrar a melhor solução possível para você! 🙏</div>
-        </div>
-      </div>
-    </div>
-
+<div id="99food-content" class="platform-content">
+  <div class="alert-99food">
+    <h2>⚠️ Plataforma em Avaliação</h2>
+    <p>Ainda estamos mapeando e testando as resoluções operacionais para os chamados do 99Food.</p>
+    <p style="margin-top: 16px; color: #d84315; font-size: 18px;">Para <strong>QUALQUER PROBLEMA</strong> com pedidos ou entregadores da 99Food, não tome ações no sistema. <strong>Contate imediatamente a supervisão ou a gerência.</strong></p>
   </div>
 </div>
-
-<!-- DETAIL 2: PEDIDOS TROCADOS -->
-<div class="detail" id="detail-2">
-  <div class="detail-header">
-    <h2>🔄 PEDIDOS TROCADOS PELO MOTOBOY IFOOD</h2>
-    <p>Responsabilidade é da logística iFood — não assuma o cancelamento. Usamos logística iFood (Plano Entrega), então o iFood analisa quem causou o problema.</p>
-  </div>
-  <div class="scenarios">
-
-    <div class="scenario">
-      <button class="scenario-toggle open" onclick="toggleScenario(this)">
-        <span class="s-badge badge-ext">↗ iFood responsável</span>
-        Motoboy iFood saiu com 2 pedidos e entregou no endereço errado
-        <span class="chevron">▼</span>
-      </button>
-      <div class="scenario-body open">
-        <div class="steps">
-          <h4>📋 Passo a passo</h4>
-          <div class="step"><div class="step-num blue">1</div><span>Acesse o Acordo Após Entrega e clique em <strong>Discordar</strong> do cancelamento.</span></div>
-          <div class="step"><div class="step-num blue">2</div><span>Na justificativa: informe que utilizamos logística iFood e que a câmera da área de entrega registra os pacotes entregues ao motoboy corretamente identificados com o número do pedido.</span></div>
-          <div class="step"><div class="step-num blue">3</div><span>Informe que a responsabilidade pela entrega no endereço correto é da logística iFood.</span></div>
-          <div class="step"><div class="step-num blue">4</div><span>Envie a mensagem ao cliente pelo chat — seja empático, mas deixe claro que a falha não foi da cozinha.</span></div>
-          <div class="step"><div class="step-num blue">5</div><span>Se o iFood abrir arbitragem, reafirme o argumento e solicite análise do rastreamento da entrega.</span></div>
-        </div>
-        <div class="alert-box blue">ℹ️ <strong>Logística iFood:</strong> quando usamos o Plano Entrega, o iFood é responsável por analisar atrasos e erros na entrega. A loja não deve ser penalizada por falha do entregador.</div>
-        <div class="msg-block">
-          <div class="msg-block-header"><span>💬 Mensagem para o cliente (chat iFood)</span><button onclick="copyMsg(this)">Copiar</button></div>
-          <div class="msg-text">Olá! Equipe Five Points Burguer aqui. 🍔
-
-Sentimos muito pelo transtorno! Isso não deveria ter acontecido com você.
-
-Confirmamos que seu pedido saiu da nossa cozinha corretamente, identificado e entregue ao motoboy. O problema ocorreu durante o processo de entrega — os pedidos foram trocados pelo entregador.
-
-Como utilizamos a logística do iFood, a plataforma está sendo acionada para resolver essa situação e garantir que você seja devidamente ressarcido. O iFood tem todos os dados do rastreamento da entrega para analisar o ocorrido.
-
-Lamentamos muito que sua experiência tenha sido assim — esperamos que possamos te atender novamente em breve do jeito que você merece! 🙏</div>
-        </div>
-        <div class="msg-block">
-          <div class="msg-block-header"><span>📝 Justificativa para o iFood (Acordo Após Entrega)</span><button onclick="copyMsg(this)">Copiar</button></div>
-          <div class="msg-text">Discordamos desta solicitação de cancelamento. Nosso estabelecimento utiliza logística iFood (Plano Entrega). Temos câmeras na área de entrega que registram os pacotes sendo entregues corretamente ao motoboy, com o número do pedido visível no saco. A troca de pedidos ocorreu durante o processo de entrega, o que é responsabilidade da logística iFood. Solicitamos análise do rastreamento da entrega e que o ressarcimento seja tratado como falha de entrega da logística.</div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<!-- DETAIL 3: CLIENTE NÃO RECEBEU -->
-<div class="detail" id="detail-3">
-  <div class="detail-header">
-    <h2>📍 CLIENTE ALEGA QUE NÃO RECEBEU O PEDIDO</h2>
-    <p>VERIFIQUE O STATUS no sistema antes de qualquer resposta. Você tem 10 min no Acordo Após Entrega.</p>
-  </div>
-  <div class="scenarios">
-
-    <div class="scenario">
-      <button class="scenario-toggle" onclick="toggleScenario(this)">
-        <span class="s-badge badge-warn">⏱ Em trânsito</span>
-        Pedido ainda não consta como entregue no sistema
-        <span class="chevron">▼</span>
-      </button>
-      <div class="scenario-body">
-        <div class="steps">
-          <h4>📋 Passo a passo</h4>
-          <div class="step"><div class="step-num">1</div><span>Acesse o Gestor de Pedidos e VERIFIQUE o status atual da entrega.</span></div>
-          <div class="step"><div class="step-num">2</div><span>LOCALIZE onde está o motoboy pelo rastreamento do app.</span></div>
-          <div class="step"><div class="step-num">3</div><span>COMUNIQUE ao cliente imediatamente com a mensagem abaixo, informando o status e a previsão.</span></div>
-          <div class="step"><div class="step-num">4</div><span>Se o pedido estiver parado ou sem atualização, ACIONE o suporte iFood pelo Gestor.</span></div>
-        </div>
-        <div class="alert-box orange">⏱ ANTECIPE a comunicação — o cliente odeia atraso, mas odeia mais ainda a FALTA DE COMUNICAÇÃO.</div>
-        <div class="msg-block">
-          <div class="msg-block-header"><span>💬 Mensagem para o cliente (chat iFood)</span><button onclick="copyMsg(this)">Copiar</button></div>
-          <div class="msg-text">Olá! Equipe Five Points Burguer aqui. 🍔
-
-Verificamos o status do seu pedido e ele ainda está a caminho. Pedimos desculpas pela demora e já estamos acompanhando a situação de perto.
-
-Assim que houver alguma atualização, te avisamos. Agradecemos sua paciência! 🙏</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="scenario">
-      <button class="scenario-toggle" onclick="toggleScenario(this)">
-        <span class="s-badge badge-ext">↗ iFood responsável</span>
-        Sistema marca "Entregue" mas cliente não recebeu — SEM código de confirmação
-        <span class="chevron">▼</span>
-      </button>
-      <div class="scenario-body">
-        <div class="steps">
-          <h4>📋 Passo a passo</h4>
-          <div class="step"><div class="step-num blue">1</div><span>ACESSE o Acordo Após Entrega → CLIQUE em <strong>Discordar</strong>.</span></div>
-          <div class="step"><div class="step-num blue">2</div><span>Na justificativa: INFORME que o pedido saiu corretamente da loja (câmera comprova entrega ao motoboy) e que a falha de entrega final é responsabilidade da logística iFood.</span></div>
-          <div class="step"><div class="step-num blue">3</div><span>ENVIE a mensagem abaixo ao cliente para manter o relacionamento.</span></div>
-          <div class="step"><div class="step-num blue">4</div><span>ORIENTE o cliente a ACIONAR o suporte do iFood para investigação do rastreamento do motoboy.</span></div>
-          <div class="step"><div class="step-num blue">5</div><span>Se o iFood insistir em debitar a loja, SOLICITE análise de GPS/rastreamento do motoboy.</span></div>
-        </div>
-        <div class="alert-box blue">ℹ️ Com logística iFood, o sistema de rastreamento é do iFood. Erros de GPS ou motoboy que marca entrega sem ter entregado são responsabilidade da plataforma, não da loja.</div>
-        <div class="alert-box">✅ Nossa câmera prova que entregamos ao motoboy. A partir daí, a responsabilidade é da logística iFood.</div>
-        <div class="msg-block">
-          <div class="msg-block-header"><span>💬 Mensagem para o cliente (chat iFood)</span><button onclick="copyMsg(this)">Copiar</button></div>
-          <div class="msg-text">Olá! Aqui é a equipe Five Points Burguer. 🍔
-
-Sentimos muito por essa situação — receber uma cobrança sem o pedido chegar é frustrante, e entendemos completamente.
-
-Do nosso lado, seu pedido foi preparado com todo cuidado e entregue ao motoboy iFood corretamente. O sistema marcou a entrega como concluída, mas é possível que tenha ocorrido uma falha no processo de entrega final.
-
-Por isso, orientamos que você entre em contato com o suporte do iFood — eles têm acesso ao rastreamento completo do motoboy e poderão identificar exatamente o que aconteceu e garantir o seu ressarcimento.
-
-Pedimos desculpas pelo transtorno e esperamos que isso seja resolvido rapidamente para você! 🙏</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="scenario">
-      <button class="scenario-toggle" onclick="toggleScenario(this)">
-        <span class="s-badge badge-ok">🔐 Código confirmado</span>
-        Pedido consta como entregue COM código de recebimento registrado
-        <span class="chevron">▼</span>
-      </button>
-      <div class="scenario-body">
-        <div class="steps">
-          <h4>📋 Passo a passo</h4>
-          <div class="step"><div class="step-num">1</div><span>CONFIRME no sistema que o código de recebimento foi registrado.</span></div>
-          <div class="step"><div class="step-num">2</div><span>ENVIE a mensagem abaixo ao cliente — tom empático mas firme.</span></div>
-          <div class="step"><div class="step-num">3</div><span>Se o cliente insistir, envie a segunda mensagem reforçando o argumento do código e ORIENTE a abrir contestação diretamente no app.</span></div>
-          <div class="step"><div class="step-num red">4</div><span>NÃO aceite cancelamento — o código de entrega é de responsabilidade do cliente. Acesse o Acordo Após Entrega e DISCORDE da solicitação citando o código registrado.</span></div>
-        </div>
-        <div class="alert-box red">🔐 O CÓDIGO DE RECEBIMENTO é digitado pelo próprio cliente no app do entregador. Nós, como restaurante, NÃO temos acesso a esse código. O registro dele no sistema é prova de recebimento.</div>
-        <div class="alert-box blue">ℹ️ Se houver disputa, o iFood analisa o caso. Nossa responsabilidade termina na coleta pelo motoboy — CÂMERAS comprovam.</div>
-        <div class="msg-block">
-          <div class="msg-block-header"><span>💬 Mensagem inicial ao cliente</span><button onclick="copyMsg(this)">Copiar</button></div>
-          <div class="msg-text">Olá! Equipe Five Points Burguer aqui. 🍔
-
-Sentimos pelo transtorno relatado.
-
-De acordo com o sistema do iFood, o pedido foi entregue e confirmado por meio do código de recebimento. Esse procedimento garante a segurança tanto do cliente quanto do restaurante.
-
-Recomendamos que verifique se alguém em sua residência ou condomínio recebeu o pedido em seu nome. Caso persista a dúvida, sugerimos abrir a contestação diretamente pelo aplicativo, para que o iFood possa acompanhar o caso.
-
-Estamos à disposição! 🙏</div>
-        </div>
-        <div class="msg-block">
-          <div class="msg-block-header"><span>💬 Mensagem se o cliente insistir</span><button onclick="copyMsg(this)">Copiar</button></div>
-          <div class="msg-text">Olá! Equipe Five Points Burguer aqui. 🍔
-
-Entendemos sua preocupação e queremos esclarecer da melhor forma.
-
-O iFood exige que, no momento da entrega, seja informado um código que somente o cliente possui. Esse código foi registrado no sistema, confirmando a entrega no endereço indicado. Além disso, nosso processo interno é monitorado por câmeras e o pedido foi expedido normalmente.
-
-Como restaurante, não temos acesso nem controle sobre o código de entrega, pois ele é inserido diretamente pelo cliente no app do entregador. Se houve algum problema após esse ponto, o iFood é quem pode verificar junto à equipe de entregadores.
-
-Recomendamos que abra a contestação pelo aplicativo para que possam investigar. Continuamos à disposição para ajudar no que estiver ao nosso alcance. 🙏</div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<!-- DETAIL 4: ATRASO NA ENTREGA -->
-<div class="detail" id="detail-4">
-  <div class="detail-header">
-    <h2>⏰ ATRASO NA ENTREGA — COLETA OU ROTA COM PROBLEMAS</h2>
-    <p>COMUNIQUE antes que o cliente reclame. Você tem 10 min no Acordo Após Entrega se houver solicitação.</p>
-  </div>
-  <div class="scenarios">
-
-    <div class="scenario">
-      <button class="scenario-toggle open" onclick="toggleScenario(this)">
-        <span class="s-badge badge-warn">⏱ Sem motoboy</span>
-        Nenhum entregador atribuído ou entregador parado/longe
-        <span class="chevron">▼</span>
-      </button>
-      <div class="scenario-body open">
-        <div class="steps">
-          <h4>📋 Passo a passo</h4>
-          <div class="step"><div class="step-num">1</div><span>Assim que o pedido estiver pronto: CLIQUE em <strong>"Avisar Pedido Pronto"</strong> no Gestor de Pedidos. Isso aciona o sistema de IA do iFood para priorizar a coleta.</span></div>
-          <div class="step"><div class="step-num">2</div><span>MONITORE o status. Se o motoboy estiver atribuído mas parado por mais de 5 minutos, ACIONE o <strong>suporte iFood</strong> pelo Gestor de Pedidos.</span></div>
-          <div class="step"><div class="step-num">3</div><span>Se não houver nenhum motoboy após 10 minutos, <strong>CONTACTE o suporte iFood</strong> relatando o problema — use o chat do Gestor.</span></div>
-          <div class="step"><div class="step-num orange">4</div><span>MANTENHA o pedido no aquecedor de frituras ligado enquanto aguarda. MONITORE a qualidade.</span></div>
-          <div class="step"><div class="step-num">5</div><span>ENVIE a mensagem abaixo ao cliente para ele saber que o pedido está pronto e que o problema está no transporte.</span></div>
-          <div class="step"><div class="step-num blue">6</div><span>Se o cliente solicitar cancelamento por atraso, o iFood analisará quem foi o responsável pelo atraso (logística iFood = responsabilidade deles).</span></div>
-        </div>
-        <div class="alert-box">✅ Com logística iFood, atrasos causados por falta de entregador são responsabilidade do iFood, não da loja — desde que você tenha clicado em "Pedido Pronto" com o pedido realmente pronto.</div>
-        <div class="msg-block">
-          <div class="msg-block-header"><span>💬 Mensagem para o cliente (chat iFood)</span><button onclick="copyMsg(this)">Copiar</button></div>
-          <div class="msg-text">Olá! Equipe Five Points Burguer aqui. 🍔
-
-Só para te avisar: seu pedido está pronto e quentinho aqui na cozinha, aguardando o motoboy para a coleta! 🔥
-
-Estamos acompanhando de perto e já acionamos o iFood para agilizar a atribuição do entregador. Infelizmente esse tipo de atraso está fora do nosso controle, já que a logística é do iFood.
-
-Assim que o pedido for coletado, ele estará a caminho! Pedimos desculpas pela espera e agradecemos sua paciência. 🙏</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="scenario">
-      <button class="scenario-toggle" onclick="toggleScenario(this)">
-        <span class="s-badge badge-warn">🌧 Chuva / Alta demanda</span>
-        Atraso previsível por condições externas — comunique ANTES
-        <span class="chevron">▼</span>
-      </button>
-      <div class="scenario-body">
-        <div class="steps">
-          <h4>📋 Passo a passo</h4>
-          <div class="step"><div class="step-num">1</div><span>PERCEBEU que o pedido vai atrasar? COMUNIQUE imediatamente pelo chat do iFood — NÃO espere o cliente reclamar.</span></div>
-          <div class="step"><div class="step-num">2</div><span>EXPLIQUE o motivo (chuva ou alta demanda) e ofereça uma PREVISÃO atualizada de entrega.</span></div>
-          <div class="step"><div class="step-num">3</div><span>AVISE também quando o pedido sair para entrega.</span></div>
-        </div>
-        <div class="alert-box orange">⚠️ O cliente tolera o atraso, mas NÃO TOLERA a falta de comunicação. ANTECIPE sempre.</div>
-        <div class="msg-block">
-          <div class="msg-block-header"><span>💬 Mensagem — Chuva</span><button onclick="copyMsg(this)">Copiar</button></div>
-          <div class="msg-text">Olá! Equipe Five Points Burguer aqui. 🍔
-
-Devido ao mau tempo, as entregas podem sofrer um pequeno atraso hoje. Pedimos desculpas caso isso ocorra!
-
-Te avisaremos pelo app assim que seu pedido sair para entrega. Um abraço! 🙏</div>
-        </div>
-        <div class="msg-block">
-          <div class="msg-block-header"><span>💬 Mensagem — Alta demanda</span><button onclick="copyMsg(this)">Copiar</button></div>
-          <div class="msg-text">Olá! Equipe Five Points Burguer aqui. 🍔
-
-Estamos com uma demanda bem alta agora e seu pedido pode ter um pequeno atraso. Pedimos desculpas pela espera!
-
-Seu pedido está sendo preparado com todo carinho e te avisamos assim que sair para entrega. Obrigado pela compreensão! 🙏</div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<!-- DETAIL 5: COMPLEMENTAÇÃO DE PEDIDO -->
-<div class="detail" id="detail-5">
-  <div class="detail-header">
-    <h2>➕ COMPLEMENTAÇÃO DE PEDIDO — ITEM ADICIONAL SOLICITADO</h2>
-    <p>NUNCA adicione itens sem pagamento prévio confirmado. Siga o fluxo correto conforme o canal.</p>
-  </div>
-  <div class="scenarios">
-
-    <div class="scenario">
-      <button class="scenario-toggle" onclick="toggleScenario(this)">
-        <span class="s-badge badge-err">✖ Via chat iFood</span>
-        Cliente pede complemento pelo chat do iFood
-        <span class="chevron">▼</span>
-      </button>
-      <div class="scenario-body">
-        <div class="steps">
-          <h4>📋 Passo a passo</h4>
-          <div class="step"><div class="step-num">1</div><span>INFORME ao cliente que não é possível atender por esse canal — é uma regra da plataforma.</span></div>
-          <div class="step"><div class="step-num">2</div><span>ORIENTE a fazer um NOVO PEDIDO pelo app, caso queira o item adicional.</span></div>
-        </div>
-        <div class="alert-box red">⚠️ NUNCA adicione itens ao pedido sem registro e pagamento — isso cria inconsistência no caixa e no estoque.</div>
-        <div class="msg-block">
-          <div class="msg-block-header"><span>💬 Mensagem para o cliente (chat iFood)</span><button onclick="copyMsg(this)">Copiar</button></div>
-          <div class="msg-text">Olá! Equipe Five Points Burguer aqui. 🍔
-
-Infelizmente não conseguimos incluir itens adicionais por este canal. Conforme as regras do iFood, todos os pedidos devem ser realizados exclusivamente pela plataforma.
-
-Se quiser, é só fazer um novo pedido pelo app! Estamos aqui para atender. 🙏</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="scenario">
-      <button class="scenario-toggle" onclick="toggleScenario(this)">
-        <span class="s-badge badge-ok">📱 Via WhatsApp</span>
-        Cliente pede complemento pelo WhatsApp para pedido feito no iFood
-        <span class="chevron">▼</span>
-      </button>
-      <div class="scenario-body">
-        <div class="steps">
-          <h4>📋 Passo a passo</h4>
-          <div class="step"><div class="step-num">1</div><span>ANOTE o pedido e informe ao cliente que o complemento só pode ser feito com PIX ANTECIPADO.</span></div>
-          <div class="step"><div class="step-num">2</div><span>LANCE no sistema de vendas. No campo do pager use: <strong>Primeiro nome – Ifood – Nº pedido</strong>.</span></div>
-          <div class="step"><div class="step-num">3</div><span>Selecione pagamento via PIX e FORNEÇA a chave ao cliente: <strong>CNPJ 45.085.563/0001-68</strong>.</span></div>
-          <div class="step"><div class="step-num">4</div><span>AGUARDE o comprovante de pagamento ANTES de liberar para produção.</span></div>
-          <div class="step"><div class="step-num">5</div><span>LEVE a comanda até a cozinha e FIXE junto ao pedido original — explique ao montador que deve acrescer ao pedido principal.</span></div>
-        </div>
-        <div class="alert-box red">⚠️ NUNCA envie o complemento sem o comprovante de PIX confirmado. SEM PAGAMENTO = SEM PRODUÇÃO.</div>
-        <div class="alert-box blue">ℹ️ Chave PIX: CNPJ <strong>45.085.563/0001-68</strong> (Geada Fria Alimentos Ltda)</div>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<!-- DETAIL 6: TROCA DE ENDEREÇO -->
-<div class="detail" id="detail-6">
-  <div class="detail-header">
-    <h2>📌 TROCA DE ENDEREÇO DE ENTREGA</h2>
-    <p>NÃO é possível alterar o endereço após a confirmação do pedido. Oriente o cliente pelas opções disponíveis.</p>
-  </div>
-  <div class="scenarios">
-
-    <div class="scenario">
-      <button class="scenario-toggle open" onclick="toggleScenario(this)">
-        <span class="s-badge badge-err">✖ Não permitido</span>
-        Cliente solicita troca de endereço após confirmar o pedido
-        <span class="chevron">▼</span>
-      </button>
-      <div class="scenario-body open">
-        <div class="steps">
-          <h4>📋 Passo a passo</h4>
-          <div class="step"><div class="step-num">1</div><span>INFORME ao cliente que não é possível alterar o endereço pelo nosso lado — é uma política de segurança da plataforma.</span></div>
-          <div class="step"><div class="step-num">2</div><span>ORIENTE o cliente a acessar a aba <strong>Ajuda</strong> do app para tentar a alteração diretamente.</span></div>
-          <div class="step"><div class="step-num">3</div><span>Se não for possível, sugira CANCELAR o pedido e refazer com o endereço correto — caso o pedido ainda não esteja em produção.</span></div>
-        </div>
-        <div class="alert-box red">⚠️ NÃO tente alterar o endereço manualmente de nenhuma forma. Isso é responsabilidade exclusiva da plataforma iFood.</div>
-        <div class="msg-block">
-          <div class="msg-block-header"><span>💬 Mensagem para o cliente (chat iFood)</span><button onclick="copyMsg(this)">Copiar</button></div>
-          <div class="msg-text">Olá! Equipe Five Points Burguer aqui. 🍔
-
-Por políticas do iFood e para garantir a sua segurança, não conseguimos alterar o endereço de entrega após a confirmação do pedido.
-
-Sugerimos que você acesse a aba Ajuda no app e tente a alteração por lá. Se não for possível, outra opção é cancelar o pedido e refazê-lo com o endereço correto.
-
-Lamentamos o transtorno e estamos à disposição! 🙏</div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-
 
 <script>
+let activePlatform = 'ifood';
 let activeDetail = null;
+
+function switchPlatform(platformId, color) {
+  // Update Tabs
+  document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+  document.querySelector(`.tab-btn[data-target="${platformId}"]`).classList.add('active');
+  
+  // Update Theme Color
+  document.documentElement.style.setProperty('--active-theme', color);
+
+  // Hide all contents, show target
+  document.querySelectorAll('.platform-content').forEach(content => content.classList.remove('active'));
+  document.getElementById(`${platformId}-content`).classList.add('active');
+
+  // Reset states
+  activePlatform = platformId;
+  document.getElementById('searchInput').value = '';
+  filterProblems('');
+}
 
 function toggleDetail(id) {
   const btn = document.querySelector(`.prob-btn[data-id="${id}"]`);
@@ -978,8 +904,8 @@ function toggleDetail(id) {
 
   if (!detail) return;
 
-  // reseta TODOS os cenários de TODOS os detalhes
-  document.querySelectorAll('.scenario-toggle.open, .scenario-body.open').forEach(el => el.classList.remove('open'));
+  // Fechar cenários abertos do painel atual
+  document.querySelectorAll(`#${activePlatform}-content .scenario-toggle.open, #${activePlatform}-content .scenario-body.open`).forEach(el => el.classList.remove('open'));
 
   if (activeDetail === id) {
     detail.classList.remove('visible');
@@ -988,8 +914,9 @@ function toggleDetail(id) {
     return;
   }
 
-  document.querySelectorAll('.detail.visible').forEach(d => d.classList.remove('visible'));
-  document.querySelectorAll('.prob-btn.active').forEach(b => b.classList.remove('active'));
+  // Ocultar detalhes visiveis
+  document.querySelectorAll(`#${activePlatform}-content .detail.visible`).forEach(d => d.classList.remove('visible'));
+  document.querySelectorAll(`#${activePlatform}-content .prob-btn.active`).forEach(b => b.classList.remove('active'));
 
   detail.classList.add('visible');
   if (btn) btn.classList.add('active');
@@ -1016,7 +943,7 @@ function copyMsg(btn) {
 
 function filterProblems(query) {
   const q = query.toLowerCase().trim();
-  const buttons = document.querySelectorAll('.prob-btn');
+  const buttons = document.querySelectorAll(`#${activePlatform}-content .prob-btn`);
   let anyVisible = false;
 
   buttons.forEach(btn => {
@@ -1028,12 +955,15 @@ function filterProblems(query) {
     if (match) anyVisible = true;
   });
 
-  document.getElementById('no-results').style.display = anyVisible ? 'none' : 'block';
+  const noResultsNode = document.getElementById(`no-results-${activePlatform}`);
+  if(noResultsNode) {
+    noResultsNode.style.display = anyVisible || buttons.length === 0 ? 'none' : 'block';
+  }
 
   if (q === '') {
-    document.querySelectorAll('.scenario-toggle.open, .scenario-body.open').forEach(el => el.classList.remove('open'));
-    document.querySelectorAll('.detail.visible').forEach(d => d.classList.remove('visible'));
-    document.querySelectorAll('.prob-btn.active').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll(`#${activePlatform}-content .scenario-toggle.open, #${activePlatform}-content .scenario-body.open`).forEach(el => el.classList.remove('open'));
+    document.querySelectorAll(`#${activePlatform}-content .detail.visible`).forEach(d => d.classList.remove('visible'));
+    document.querySelectorAll(`#${activePlatform}-content .prob-btn.active`).forEach(b => b.classList.remove('active'));
     activeDetail = null;
   }
 }
